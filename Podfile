@@ -10,4 +10,6 @@ target 'FIT5140_FinalAssignment' do
 	pod 'Firebase/Auth'
 	pod 'Firebase/Firestore'
 	pod 'Firebase/Storage'
+	# add the Firebase pod for Google Analytics
+	pod 'Firebase/Analytics'
 end
