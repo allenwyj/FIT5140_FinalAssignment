@@ -180,25 +180,45 @@
         <!--Map-->
         <scene sceneID="wsU-Pe-zkQ">
             <objects>
-                <viewController id="tAy-z8-hu1" sceneMemberID="viewController">
+                <viewController id="tAy-z8-hu1" customClass="MapScreenViewController" customModule="FIT5140_FinalAssignment" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eYz-f1-oCd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="KXU-Dh-9WB">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXU-Dh-9WB">
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <connections>
+                                    <outlet property="delegate" destination="tAy-z8-hu1" id="d72-Gv-SRe"/>
+                                </connections>
                             </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1oZ-RZ-fZg">
+                                <rect key="frame" x="0.0" y="763" width="414" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ZYV-gU-TUX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6fd-X6-rjJ" firstAttribute="trailing" secondItem="KXU-Dh-9WB" secondAttribute="trailing" id="IP4-vs-hfd"/>
                             <constraint firstItem="6fd-X6-rjJ" firstAttribute="bottom" secondItem="KXU-Dh-9WB" secondAttribute="bottom" id="O64-1I-OK0"/>
+                            <constraint firstItem="6fd-X6-rjJ" firstAttribute="bottom" secondItem="1oZ-RZ-fZg" secondAttribute="bottom" id="PXs-at-nUW"/>
                             <constraint firstItem="KXU-Dh-9WB" firstAttribute="top" secondItem="6fd-X6-rjJ" secondAttribute="top" id="XUo-jA-aaF"/>
+                            <constraint firstItem="1oZ-RZ-fZg" firstAttribute="leading" secondItem="6fd-X6-rjJ" secondAttribute="leading" id="Xt3-SA-nFG"/>
+                            <constraint firstItem="6fd-X6-rjJ" firstAttribute="trailing" secondItem="1oZ-RZ-fZg" secondAttribute="trailing" id="p9W-qP-aSM"/>
                             <constraint firstItem="KXU-Dh-9WB" firstAttribute="leading" secondItem="6fd-X6-rjJ" secondAttribute="leading" id="v3D-la-FYv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6fd-X6-rjJ"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="icon-map.png" id="SXq-La-JVa"/>
+                    <connections>
+                        <outlet property="addressLabel" destination="1oZ-RZ-fZg" id="qMp-4c-i7m"/>
+                        <outlet property="mapView" destination="KXU-Dh-9WB" id="awy-Fy-PKx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L1f-Tc-w2S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -227,7 +247,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="YOy-uU-hMD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="XjN-9K-scO" kind="relationship" relationship="viewControllers" id="YtG-ep-qFh"/>
