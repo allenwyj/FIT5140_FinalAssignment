@@ -90,15 +90,20 @@ class SignUpViewController: UIViewController {
                     // User created successfully
                     let db = Firestore.firestore()
                     
-                    db.collection("users").addDocument(data: ["firstName": firstName, "lastName" : lastName, "uid" : result!.user.uid], completion: { (error) in
+                    // use uid as document id when creates user's document
+                    let newUserReference = db.collection("users").document(result!.user.uid)
+                    newUserReference.setData(["firstName": firstName, "lastName" : lastName, "uid" : result!.user.uid], completion: { (error) in
                         
                         if error != nil {
                             // Show error message
                             self.showError("Error! Please try to sign up again.")
                         }
                     })
+                    
                 }
             }
+            
+            
             // Transition to the home screen
             transitionToHomeScreen()
         }

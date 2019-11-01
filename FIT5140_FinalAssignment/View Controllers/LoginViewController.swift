@@ -7,21 +7,21 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
+import FirebaseFirestore
 
 class LoginViewController: UIViewController {
-
+    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
         setUpElements()
     }
     
@@ -73,6 +73,7 @@ class LoginViewController: UIViewController {
                     self.errorLabel.text = error!.localizedDescription
                     self.errorLabel.alpha = 1
                 } else {
+                    
                     let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.homeViewController) as? HomeViewController
                     
                     // kill view

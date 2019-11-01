@@ -22,6 +22,14 @@
 		D3EFC67A236AB85D002DC2DC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC679236AB85D002DC2DC /* Constants.swift */; };
 		D3EFC67D236ACA0C002DC2DC /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D3EFC67C236ACA0C002DC2DC /* video.mp4 */; };
 		D3EFC67F236AD109002DC2DC /* binoculars.png in Resources */ = {isa = PBXBuildFile; fileRef = D3EFC67E236AD109002DC2DC /* binoculars.png */; };
+		D3EFC682236AF527002DC2DC /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC680236AF527002DC2DC /* ItemTableViewCell.swift */; };
+		D3EFC683236AF527002DC2DC /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3EFC681236AF527002DC2DC /* ItemTableViewCell.xib */; };
+		D3EFC686236B056A002DC2DC /* monitoring.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3EFC684236B056A002DC2DC /* monitoring.jpg */; };
+		D3EFC687236B056A002DC2DC /* map.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3EFC685236B056A002DC2DC /* map.jpg */; };
+		D3EFC689236BCD07002DC2DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC688236BCD07002DC2DC /* User.swift */; };
+		D3EFC68F236BFDAB002DC2DC /* icon-camera.png in Resources */ = {isa = PBXBuildFile; fileRef = D3EFC68C236BFDAB002DC2DC /* icon-camera.png */; };
+		D3EFC690236BFDAB002DC2DC /* icon-map.png in Resources */ = {isa = PBXBuildFile; fileRef = D3EFC68D236BFDAB002DC2DC /* icon-map.png */; };
+		D3EFC691236BFDAB002DC2DC /* icon-home.png in Resources */ = {isa = PBXBuildFile; fileRef = D3EFC68E236BFDAB002DC2DC /* icon-home.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +51,14 @@
 		D3EFC679236AB85D002DC2DC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D3EFC67C236ACA0C002DC2DC /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		D3EFC67E236AD109002DC2DC /* binoculars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = binoculars.png; sourceTree = "<group>"; };
+		D3EFC680236AF527002DC2DC /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		D3EFC681236AF527002DC2DC /* ItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemTableViewCell.xib; sourceTree = "<group>"; };
+		D3EFC684236B056A002DC2DC /* monitoring.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = monitoring.jpg; sourceTree = "<group>"; };
+		D3EFC685236B056A002DC2DC /* map.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = map.jpg; sourceTree = "<group>"; };
+		D3EFC688236BCD07002DC2DC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D3EFC68C236BFDAB002DC2DC /* icon-camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-camera.png"; sourceTree = "<group>"; };
+		D3EFC68D236BFDAB002DC2DC /* icon-map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-map.png"; sourceTree = "<group>"; };
+		D3EFC68E236BFDAB002DC2DC /* icon-home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-home.png"; sourceTree = "<group>"; };
 		ECB023F1FB4F3CB7472BC419 /* Pods_FIT5140_FinalAssignment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FIT5140_FinalAssignment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -106,6 +122,9 @@
 				D3B40E2F236A796D009B2D9E /* Assets.xcassets */,
 				D3B40E34236A796D009B2D9E /* Info.plist */,
 				D3B40E2C236A796C009B2D9E /* FIT5140_FinalAssignment.xcdatamodeld */,
+				D3EFC680236AF527002DC2DC /* ItemTableViewCell.swift */,
+				D3EFC681236AF527002DC2DC /* ItemTableViewCell.xib */,
+				D3EFC688236BCD07002DC2DC /* User.swift */,
 			);
 			path = FIT5140_FinalAssignment;
 			sourceTree = "<group>";
@@ -133,6 +152,11 @@
 		D3EFC67B236AC795002DC2DC /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D3EFC68C236BFDAB002DC2DC /* icon-camera.png */,
+				D3EFC68E236BFDAB002DC2DC /* icon-home.png */,
+				D3EFC68D236BFDAB002DC2DC /* icon-map.png */,
+				D3EFC685236B056A002DC2DC /* map.jpg */,
+				D3EFC684236B056A002DC2DC /* monitoring.jpg */,
 				D3EFC67E236AD109002DC2DC /* binoculars.png */,
 				D3EFC67C236ACA0C002DC2DC /* video.mp4 */,
 			);
@@ -200,11 +224,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3EFC67D236ACA0C002DC2DC /* video.mp4 in Resources */,
+				D3EFC690236BFDAB002DC2DC /* icon-map.png in Resources */,
 				D3B40E33236A796D009B2D9E /* LaunchScreen.storyboard in Resources */,
 				D3EFC671236AA0BC002DC2DC /* GoogleService-Info.plist in Resources */,
+				D3EFC687236B056A002DC2DC /* map.jpg in Resources */,
+				D3EFC686236B056A002DC2DC /* monitoring.jpg in Resources */,
 				D3EFC67F236AD109002DC2DC /* binoculars.png in Resources */,
 				D3B40E30236A796D009B2D9E /* Assets.xcassets in Resources */,
+				D3EFC683236AF527002DC2DC /* ItemTableViewCell.xib in Resources */,
 				D3B40E2B236A796C009B2D9E /* Main.storyboard in Resources */,
+				D3EFC68F236BFDAB002DC2DC /* icon-camera.png in Resources */,
+				D3EFC691236BFDAB002DC2DC /* icon-home.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,12 +288,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3EFC66D236A97EF002DC2DC /* Styles.swift in Sources */,
+				D3EFC682236AF527002DC2DC /* ItemTableViewCell.swift in Sources */,
 				D3B40E28236A796C009B2D9E /* ViewController.swift in Sources */,
 				D3B40E26236A796C009B2D9E /* AppDelegate.swift in Sources */,
 				D3EFC665236A8DF8002DC2DC /* SignUpViewController.swift in Sources */,
 				D3EFC667236A8E05002DC2DC /* LoginViewController.swift in Sources */,
 				D3B40E2E236A796C009B2D9E /* FIT5140_FinalAssignment.xcdatamodeld in Sources */,
 				D3EFC669236A8E17002DC2DC /* HomeViewController.swift in Sources */,
+				D3EFC689236BCD07002DC2DC /* User.swift in Sources */,
 				D3EFC67A236AB85D002DC2DC /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
