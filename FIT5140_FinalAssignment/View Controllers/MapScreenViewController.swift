@@ -18,6 +18,7 @@ class MapScreenViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var lastUpdateTime: UILabel!
     
     var locationManager = CLLocationManager()
     var userCurrentLocation: CLLocationCoordinate2D?
@@ -120,15 +121,23 @@ class MapScreenViewController: UIViewController {
                 let currentLocation = document.data()
                 let lat = (currentLocation!["latitude"] as! NSString).doubleValue
                 let long = (currentLocation!["longitude"] as! NSString).doubleValue
+                let time = currentLocation!["time"] as! String
                 
+                self.updateTimeStamp(timeStamp: time)
                 self.addAnnotation(latitude: lat, longitude: long)
                 var currentCarLocation = CLLocation()
                 currentCarLocation = CLLocation(latitude: lat, longitude: long)
+                
                 self.showAddress(currentCarLocation: currentCarLocation)
+                
             } else {
                 print("Document does not exist")
             }
         }
+    }
+    
+    func updateTimeStamp(timeStamp: String) {
+        lastUpdateTime.text = "Last update: \(timeStamp)"
     }
     
     func showAddress(currentCarLocation: CLLocation) {

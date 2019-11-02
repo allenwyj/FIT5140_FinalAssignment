@@ -10,10 +10,15 @@ import UIKit
 import MapKit
 
 class Location: NSObject, MKAnnotation {
+    //var image: UIImage
+    var title: String?
+    var subTitle: String?
     var coordinate: CLLocationCoordinate2D
     
-    init(lat: Double, long: Double) {
-        
-        self.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+    init(title: String, subTitle: String, coordinate: CLLocationCoordinate2D) {
+        //self.image = image
+        self.title = title
+        self.subTitle = subTitle
+        self.coordinate = coordinate
     }
 }
