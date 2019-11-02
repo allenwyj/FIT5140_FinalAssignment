@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9826ABD0D76CD4C8E9DC914F /* Pods_FIT5140_FinalAssignment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB023F1FB4F3CB7472BC419 /* Pods_FIT5140_FinalAssignment.framework */; };
+		D38AA85B236D51B600774378 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38AA85A236D51B600774378 /* SettingViewController.swift */; };
 		D3B40E26236A796C009B2D9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B40E25236A796C009B2D9E /* AppDelegate.swift */; };
 		D3B40E28236A796C009B2D9E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B40E27236A796C009B2D9E /* ViewController.swift */; };
 		D3B40E2B236A796C009B2D9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3B40E29236A796C009B2D9E /* Main.storyboard */; };
@@ -35,11 +36,14 @@
 		D3EFC699236C4059002DC2DC /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC696236C4058002DC2DC /* DatabaseProtocol.swift */; };
 		D3EFC69A236C4059002DC2DC /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC697236C4058002DC2DC /* MulticastDelegate.swift */; };
 		D3EFC69C236C4173002DC2DC /* CurrentValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC69B236C4173002DC2DC /* CurrentValue.swift */; };
+		D3EFC69E236D29A8002DC2DC /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC69D236D29A8002DC2DC /* Location.swift */; };
+		D3EFC6A0236D3D94002DC2DC /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC69F236D3D94002DC2DC /* MainTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		426190FBD30BEA4708B8C0CD /* Pods-FIT5140_FinalAssignment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FIT5140_FinalAssignment.debug.xcconfig"; path = "Target Support Files/Pods-FIT5140_FinalAssignment/Pods-FIT5140_FinalAssignment.debug.xcconfig"; sourceTree = "<group>"; };
 		6521B2B533ED8C570CCF5E02 /* Pods-FIT5140_FinalAssignment.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FIT5140_FinalAssignment.release.xcconfig"; path = "Target Support Files/Pods-FIT5140_FinalAssignment/Pods-FIT5140_FinalAssignment.release.xcconfig"; sourceTree = "<group>"; };
+		D38AA85A236D51B600774378 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		D3B40E22236A796C009B2D9E /* FIT5140_FinalAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FIT5140_FinalAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B40E25236A796C009B2D9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3B40E27236A796C009B2D9E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +73,8 @@
 		D3EFC696236C4058002DC2DC /* DatabaseProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		D3EFC697236C4058002DC2DC /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
 		D3EFC69B236C4173002DC2DC /* CurrentValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentValue.swift; sourceTree = "<group>"; };
+		D3EFC69D236D29A8002DC2DC /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		D3EFC69F236D3D94002DC2DC /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		ECB023F1FB4F3CB7472BC419 /* Pods_FIT5140_FinalAssignment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FIT5140_FinalAssignment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -137,6 +143,7 @@
 				D3EFC681236AF527002DC2DC /* ItemTableViewCell.xib */,
 				D3EFC688236BCD07002DC2DC /* User.swift */,
 				D3EFC69B236C4173002DC2DC /* CurrentValue.swift */,
+				D3EFC69D236D29A8002DC2DC /* Location.swift */,
 			);
 			path = FIT5140_FinalAssignment;
 			sourceTree = "<group>";
@@ -149,6 +156,8 @@
 				D3EFC666236A8E05002DC2DC /* LoginViewController.swift */,
 				D3EFC668236A8E17002DC2DC /* HomeViewController.swift */,
 				D3EFC692236C0EC3002DC2DC /* MapScreenViewController.swift */,
+				D3EFC69F236D3D94002DC2DC /* MainTabBarController.swift */,
+				D38AA85A236D51B600774378 /* SettingViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -312,8 +321,10 @@
 			files = (
 				D3EFC699236C4059002DC2DC /* DatabaseProtocol.swift in Sources */,
 				D3EFC698236C4059002DC2DC /* FirebaseController.swift in Sources */,
+				D3EFC69E236D29A8002DC2DC /* Location.swift in Sources */,
 				D3EFC66D236A97EF002DC2DC /* Styles.swift in Sources */,
 				D3EFC682236AF527002DC2DC /* ItemTableViewCell.swift in Sources */,
+				D38AA85B236D51B600774378 /* SettingViewController.swift in Sources */,
 				D3B40E28236A796C009B2D9E /* ViewController.swift in Sources */,
 				D3EFC693236C0EC3002DC2DC /* MapScreenViewController.swift in Sources */,
 				D3B40E26236A796C009B2D9E /* AppDelegate.swift in Sources */,
@@ -325,6 +336,7 @@
 				D3EFC669236A8E17002DC2DC /* HomeViewController.swift in Sources */,
 				D3EFC689236BCD07002DC2DC /* User.swift in Sources */,
 				D3EFC67A236AB85D002DC2DC /* Constants.swift in Sources */,
+				D3EFC6A0236D3D94002DC2DC /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

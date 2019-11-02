@@ -10,41 +10,37 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Firebase
+import FirebaseAuth
+import FirebaseFirestore
 
-class MapScreenViewController: UIViewController, CLLocationManagerDelegate {
+class MapScreenViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addressLabel: UILabel!
     
     var locationManager = CLLocationManager()
+    var userCurrentLocation: CLLocationCoordinate2D?
+    var timer = Timer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         checkLocationService()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         locationManager.startUpdatingLocation()
+        
+        scheduledUpdateCurrentCarLocation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         locationManager.stopUpdatingLocation()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        let zoomRegion = MKCoordinateRegion.init(center: center, latitudinalMeters: 10000, longitudinalMeters: 10000)
-        mapView.setRegion(zoomRegion, animated: true)
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        checkLocationServiceAuthorization()
-        
+
+        timer.invalidate()
     }
     
     func setUpLocationManager() {
@@ -56,7 +52,6 @@ class MapScreenViewController: UIViewController, CLLocationManagerDelegate {
         if CLLocationManager.locationServicesEnabled() {
             setUpLocationManager()
             checkLocationServiceAuthorization()
-            
         } else {
             // notify to turn on
             displayMessage("Please turn on the location service in the Settings.", "Error")
@@ -64,25 +59,25 @@ class MapScreenViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func checkLocationServiceAuthorization() {
-        if CLLocationManager.authorizationStatus() == .authorizedAlways || CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+        let status = CLLocationManager.authorizationStatus()
+        
+        if  status == .notDetermined {
+            locationManager.requestAlwaysAuthorization()
+        } else if status == .authorizedAlways || status == .authorizedWhenInUse {
             mapView.showsUserLocation = true
-            focusOnUserLocation()
-        } else if CLLocationManager.authorizationStatus() == .denied {
+            
+        } else if status == .denied {
             displayMessage("Please allow to use the location service.", "Error")
-        } else if CLLocationManager.authorizationStatus() == .notDetermined {
-            locationManager.requestWhenInUseAuthorization()
         } else {
             // restricted
             displayMessage("Please turn on the location service in the Settings.", "Error")
         }
     }
     
-    func focusOnUserLocation() {
-        if let location = locationManager.location?.coordinate {
-            let zoomRegion = MKCoordinateRegion.init(center: location, latitudinalMeters: 10000, longitudinalMeters: 10000)
-            
-            mapView.setRegion(mapView.regionThatFits(zoomRegion), animated: true)
-        }
+    // Zoom into user's current location
+    func zoomToLatestLocation(with coordinate: CLLocationCoordinate2D) {
+        let zoomRegion = MKCoordinateRegion.init(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+        mapView.setRegion(zoomRegion, animated: true)
     }
     
     func displayMessage(_ message: String, _ title: String){
@@ -91,41 +86,105 @@ class MapScreenViewController: UIViewController, CLLocationManagerDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    // Get the center location, should be replaced to the location from the firebase
-    func getCenterLocation(for mapView: MKMapView) -> CLLocation {
-        let lat = mapView.centerCoordinate.latitude
-        let long = mapView.centerCoordinate.longitude
-        
-        return CLLocation(latitude: lat, longitude: long)
+    func scheduledUpdateCurrentCarLocation() {
+        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
     }
-}
-
-extension MapScreenViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        let center = getCenterLocation(for: mapView)
-        let geoCoder = CLGeocoder()
+    
+    @objc func updateCounting(){
+        // remove annotation
+        removeAnnotation()
+        // TO DO: Check db
+        getCarLocationFromFirestore()
+    }
+    
+    func addAnnotation(latitude: Double, longitude: Double) {
+        let newAnnotation = MKPointAnnotation()
+        newAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        newAnnotation.title = "Car"
+        mapView.addAnnotation(newAnnotation)
+    }
+    
+    private func removeAnnotation() {
+        mapView.removeAnnotations(mapView.annotations)
+    }
+    
+    func getCarLocationFromFirestore() {
+        let db = Firestore.firestore()
+        let docRef = db.collection("currentValues").document("currentLocation")
         
-        geoCoder.reverseGeocodeLocation(center) { [weak self] (placemarks, error) in
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                print("Document data: \(dataDescription)")
+                let currentLocation = document.data()
+                let lat = (currentLocation!["latitude"] as! NSString).doubleValue
+                let long = (currentLocation!["longitude"] as! NSString).doubleValue
+                
+                self.addAnnotation(latitude: lat, longitude: long)
+                var currentCarLocation = CLLocation()
+                currentCarLocation = CLLocation(latitude: lat, longitude: long)
+                self.showAddress(currentCarLocation: currentCarLocation)
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+    
+    func showAddress(currentCarLocation: CLLocation) {
+        let geoCoder = CLGeocoder()
+        geoCoder.reverseGeocodeLocation(currentCarLocation) { [weak self] (placemarks, error) in
             guard let self = self else { return }
             if let _ = error {
                 // TO DO:
                 return
             }
-            
+
             guard let placemark = placemarks?.first else {
                 //TO DO:
                 return
             }
-            
+
             // if no value, shows blank
             let streetNumber = placemark.subThoroughfare ?? ""
             let streetName = placemark.thoroughfare ?? ""
             let suburbName = placemark.locality ?? ""
             let cityName = placemark.administrativeArea ?? ""
-            
+
             DispatchQueue.main.async {
                 self.addressLabel.text = "\(streetNumber), \(streetName) \(suburbName) \(cityName)"
             }
         }
     }
 }
+
+extension MapScreenViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+
+        print("Did get latest location")
+        
+        guard let userLatestLocation = locations.first else { return }
+        
+        if userCurrentLocation == nil {
+            zoomToLatestLocation(with: userLatestLocation.coordinate)
+        }
+            
+        userCurrentLocation = userLatestLocation.coordinate
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        checkLocationServiceAuthorization()
+    }
+}
+
+extension MapScreenViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        //var center = getCenterLocation(for: mapView)
+        
+        //var center = CLLocation()
+        
+        
+        }
+}
+

@@ -112,12 +112,12 @@ class SignUpViewController: UIViewController {
     
     func transitionToHomeScreen() {
         
-        let homeViewController = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.homeViewController) as? HomeViewController
+        let tabBarController = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.tabBarController) as? MainTabBarController
         
         // kill view
         self.dismiss(animated: true, completion: nil)
         
-        view.window?.rootViewController = homeViewController
+        view.window?.rootViewController = tabBarController
         view.window?.makeKeyAndVisible()
         
         
