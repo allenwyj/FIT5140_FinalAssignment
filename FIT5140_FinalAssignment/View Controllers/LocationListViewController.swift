@@ -19,7 +19,7 @@ class LocationListViewController: UITableViewController, DatabaseListener {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
         
-        
+        // ERROR: Adding to table view depends on how many times do user click Map
         
         // handle the data from the firebase
         
@@ -28,21 +28,19 @@ class LocationListViewController: UITableViewController, DatabaseListener {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("will appear: \(trips.count)")
+        
         databaseController?.addListener(listener: self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("will disappear: \(trips.count)")
+        
         databaseController?.removeListener(listener: self)
     }
     
     func onTripsChange(change: DatabaseChange, tripsList: [Trip]) {
-        
-        print("Before: \(tripsList.count)")
         trips = tripsList
-        print("After: \(tripsList.count)")
+        
         self.tableView.reloadData()
     }
     
@@ -50,9 +48,9 @@ class LocationListViewController: UITableViewController, DatabaseListener {
         //
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return trips.count
@@ -60,7 +58,7 @@ class LocationListViewController: UITableViewController, DatabaseListener {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let trip = trips[indexPath.row]
-        print("Cell for row at: \(trips.count)")
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocationListCell") as! LocationListCell
         
         // set trip info to the cell
@@ -71,6 +69,16 @@ class LocationListViewController: UITableViewController, DatabaseListener {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let trip = trips[indexPath.row]
+        
         performSegue(withIdentifier: "LocationListToTripViewSegue", sender: trip)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "LocationListToTripViewSegue" {
+            let destVC = segue.destination as! TripViewController
+            destVC.trip = sender as? Trip
+        }
+    }
+    
 }

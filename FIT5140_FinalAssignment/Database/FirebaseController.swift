@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
+import MapKit
 
 class FirebaseController: NSObject, DatabaseProtocol {
     
@@ -17,9 +18,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var authController: Auth
     var database: Firestore
     var tripsRef: CollectionReference?
-    var currentValuesRef: CollectionReference?
+    //var currentValuesRef: CollectionReference?
     var tripsList: [Trip]
-    var currentValueDataList: [CurrentValue]
+    //var currentValueDataList: [CurrentValue]
     
     override init() {
         // To use Firebase in our application we first must run the FirebaseApp configure method
@@ -28,7 +29,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         authController = Auth.auth()
         database = Firestore.firestore()
         tripsList = [Trip]()
-        currentValueDataList = [CurrentValue]()
+        //currentValueDataList = [CurrentValue]()
         
         super.init()
         
@@ -49,8 +50,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
         let currentUserRef = database.collection("users").document(currentUser!)
         
         tripsRef = currentUserRef.collection("trips")
+        // tripsRef = Firestore.firestore().collection("users").document("icDiYMVNoKeEBJGMKKWvmmv56mh2").collection("trips")
         
-        currentValuesRef = database.collection("currentValues")
+        //currentValuesRef = database.collection("currentValues")
         
         tripsRef?.addSnapshotListener { querySnapshot, error in
             guard (querySnapshot?.documents) != nil else {
@@ -60,36 +62,51 @@ class FirebaseController: NSObject, DatabaseProtocol {
             self.parseTripsDataSnapshot(snapshot: querySnapshot!)
         }
         
-        currentValuesRef?.addSnapshotListener { querySnapshot, error in
-            guard (querySnapshot?.documents) != nil else {
-                
-                return
-            }
-            self.parseCurrentValuesDataSnapshot(snapshot: querySnapshot!)
-        }
+//        currentValuesRef?.addSnapshotListener { querySnapshot, error in
+//            guard (querySnapshot?.documents) != nil else {
+//
+//                return
+//            }
+//            self.parseCurrentValuesDataSnapshot(snapshot: querySnapshot!)
+//        }
     }
     
     func parseTripsDataSnapshot(snapshot: QuerySnapshot) {
+        
         snapshot.documentChanges.forEach { change in
 
-            //let documentRef = change.document.documentID
             let documentRef = change.document.documentID
             
-            print("Firebase Before: \(tripsList.count)")
             if change.type == .added {
                 let newTripData = Trip()
                 newTripData.tripName = documentRef
+                
+                let pointsRef = change.document.reference.collection("points")
+                
+                pointsRef.getDocuments() { (querySnapshot, error) in
+                    if let error = error {
+                        print("Error getting documents: \(error)")
+                    } else {
+                        for document in querySnapshot!.documents {
+                            print("\(document.documentID) => \(document.data())")
+                            let lat = (document.data()["latitude"] as! NSString).doubleValue
+                            let long = (document.data()["longitude"] as! NSString).doubleValue
+                            let timeStamp = document.data()["timeStamp"] as! String
+                            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                            
+                            let newLocation = Location(title: document.documentID, subTitle: timeStamp, coordinate: coordinate)
+                            
+                            newTripData.locations?.append(newLocation)
+                        }
+                    }
+                }
+                
+                //print(tripData)
+                
                 tripsList.append(newTripData)
-                print("**********\(tripsList.count)")
             }
-            print("Firebase After: \(tripsList.count)")
 
             if change.document.data().isEmpty == false {
-//                var points = [Location]()
-//                for point in change.document.data() {
-//                    print(point)
-//
-//                }
                 
                 if change.type == .modified || change.type == .added {
                     let index = getTripIndexByID(reference: documentRef)!
@@ -104,56 +121,68 @@ class FirebaseController: NSObject, DatabaseProtocol {
                     }
                 }
             }
+            
+//            if change.type == .added {
+//                let newTripData = Trip()
+//                newTripData.tripName = documentRef
+//                print("")
+//                tripsList.append(newTripData)
+//            }
+//
+//            if change.type == .removed {
+//                if let index = getTripIndexByID(reference: documentRef) {
+//                    tripsList.remove(at: index)
+//                }
+//            }
         }
 
         listeners.invoke { (listener) in
             if listener.listenerType == ListenerType.tripsData || listener.listenerType == ListenerType.all {
-                print("invoke before: \(tripsList.count)")
+                
                 listener.onTripsChange(change: .update, tripsList: tripsList)
-                print("invoke after: \(tripsList.count)")
             }
         }
     }
     
-    func parseCurrentValuesDataSnapshot(snapshot: QuerySnapshot) {
-        snapshot.documentChanges.forEach { change in
-            
-            let documentRef = change.document.documentID
-            let id = change.document.documentID
-            
-            // Firebase generates the new document then it modifies the document with putting fields.
-            // The first step -> create a new document with document ID, listener will catch this change and start update the table,
-            // The second step -> firebase modifies the fields of the new document, listener will catch this and go to .modified step.
-            if change.type == .added {
-                let newCurrentValueData = CurrentValue()
-                newCurrentValueData.id = id
-                currentValueDataList.append(newCurrentValueData)
-            }
-            
-            // Therefore, this is for the second time updateing ( the new document will created in the first
-            // updating with empty field, it won't go through this)
-            if change.document.data().isEmpty == false {
-                //let timeStamp = change.document.data()["timeStamp"] as! String
-               
-                
-                // This is for modifying document data after updating in the firebase, and it's for putting values
-                // into the new document that is sent by the server.
-                if change.type == .modified || change.type == .added {
-                    let index = 0
-                    currentValueDataList[index].id = documentRef
-                    //currentValueDataList[index].timeStamp = timeStamp
-                    
-                }
-            }
-        }
-        
-        listeners.invoke { (listener) in
-            if listener.listenerType == ListenerType.currentValue || listener.listenerType == ListenerType.all {
-                
-                listener.onCurrentValuesChange(change: .update, currentValueDataList: currentValueDataList)
-            }
-        }
-    }
+//    func parseCurrentValuesDataSnapshot(snapshot: QuerySnapshot) {
+//        snapshot.documentChanges.forEach { change in
+//
+//            let documentRef = change.document.documentID
+//            let id = change.document.documentID
+//
+//            // Firebase generates the new document then it modifies the document with putting fields.
+//            // The first step -> create a new document with document ID, listener will catch this change and start update the table,
+//            // The second step -> firebase modifies the fields of the new document, listener will catch this and go to .modified step.
+//            if change.type == .added {
+//                let newCurrentValueData = CurrentValue()
+//                newCurrentValueData.id = id
+//                currentValueDataList.append(newCurrentValueData)
+//            }
+//
+//            // Therefore, this is for the second time updateing ( the new document will created in the first
+//            // updating with empty field, it won't go through this)
+//            if change.document.data().isEmpty == false {
+//                //let timeStamp = change.document.data()["timeStamp"] as! String
+//
+//
+//                // This is for modifying document data after updating in the firebase, and it's for putting values
+//                // into the new document that is sent by the server.
+//                if change.type == .modified || change.type == .added {
+//                    let index = 0
+//                    currentValueDataList[index].id = documentRef
+//                    //currentValueDataList[index].timeStamp = timeStamp
+//
+//                }
+//            }
+//        }
+//
+//        listeners.invoke { (listener) in
+//            if listener.listenerType == ListenerType.currentValue || listener.listenerType == ListenerType.all {
+//
+//                listener.onCurrentValuesChange(change: .update, currentValueDataList: currentValueDataList)
+//            }
+//        }
+//    }
     
     //get the index by ID
     func getTripIndexByID(reference: String) -> Int? {
@@ -171,18 +200,20 @@ class FirebaseController: NSObject, DatabaseProtocol {
         listeners.addDelegate(listener)
         
         if listener.listenerType == ListenerType.tripsData || listener.listenerType == ListenerType.all {
-            print("addListener before: \(tripsList.count)")
+            
             listener.onTripsChange(change: .update, tripsList: tripsList)
-            print("addListener after: \(tripsList.count)")
+            
         }
         
         
-        if listener.listenerType == ListenerType.currentValue || listener.listenerType == ListenerType.all {
-            listener.onCurrentValuesChange(change: .update, currentValueDataList: currentValueDataList)
-        }
+//        if listener.listenerType == ListenerType.currentValue || listener.listenerType == ListenerType.all {
+//            listener.onCurrentValuesChange(change: .update, currentValueDataList: currentValueDataList)
+//        }
     }
     
     func removeListener(listener: DatabaseListener) {
+        print("listener removed")
+        tripsList = []
         listeners.removeDelegate(listener)
     }
 }

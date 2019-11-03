@@ -112,7 +112,7 @@ class MapScreenViewController: UIViewController {
     
     func getCarLocationFromFirestore() {
         let db = Firestore.firestore()
-        let docRef = db.collection("currentValues").document("currentLocation")
+        // let docRef = db.collection("currentValues").document("currentLocation")
         
         let currentUser = Auth.auth().currentUser
         let currentUserRef = db.collection("users").document(currentUser!.uid)

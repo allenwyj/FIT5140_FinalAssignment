@@ -23,4 +23,5 @@ class Location: NSObject, MKAnnotation {
         self.coordinate = coordinate
         self.timeStamp = ""
     }
+    
 }

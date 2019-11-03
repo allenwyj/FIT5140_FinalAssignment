@@ -12,22 +12,30 @@ import MapKit
 class TripViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
 
-
+    var trip: Trip?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         var lists = [CLLocationCoordinate2D]()
-        let a = CLLocationCoordinate2D(latitude: -37.876823, longitude: 145.045837)
-        let b = CLLocationCoordinate2D(latitude: -37.907803, longitude: 145.133957)
-        let c = CLLocationCoordinate2D(latitude: -37.8102, longitude: 144.9628)
-        let d = CLLocationCoordinate2D(latitude: -37.8744, longitude: 145.1668)
-        lists.append(a)
-        lists.append(b)
-        lists.append(c)
-        lists.append(d)
+        
+//        let a = CLLocationCoordinate2D(latitude: -37.876823, longitude: 145.045837) // caulfield campus
+//        let b = CLLocationCoordinate2D(latitude: -37.907803, longitude: 145.133957) //clayton campus
+//        let c = CLLocationCoordinate2D(latitude: -37.8102, longitude: 144.9628) // melbourne central
+//        let d = CLLocationCoordinate2D(latitude: -37.8744, longitude: 145.1668) // Glen Waverley
+//        lists.append(a)
+//        lists.append(b)
+//        lists.append(c)
+//        lists.append(d)
+        
+        for i in trip!.locations! {
+            lists.append(i.coordinate)
+        }
+        
         //drawLines(sourceLocation: a, destinationLocation: b)
         //drawLines(sourceLocation: b, destinationLocation: c)
+        guard lists.count > 0 else { return }
         
         addAnnotation(sourceLocation: lists[0], destinationLocation: lists[lists.count - 1])
         
@@ -39,6 +47,8 @@ class TripViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
+    
+    
     
     func addAnnotation(sourceLocation: CLLocationCoordinate2D, destinationLocation: CLLocationCoordinate2D) {
         let sourcePin = Location(title: "Start Point", subTitle: "Source", coordinate: sourceLocation)
