@@ -38,7 +38,6 @@ class TripViewController: UIViewController, MKMapViewDelegate {
                 break
             }
         }
-        
     }
     
     func addAnnotation(sourceLocation: CLLocationCoordinate2D, destinationLocation: CLLocationCoordinate2D) {
@@ -81,7 +80,7 @@ class TripViewController: UIViewController, MKMapViewDelegate {
         self.mapView.delegate = self
     }
 
-    //MARK:- Mapkit delegate
+    // MARK:- Mapkit delegate
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer{
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = UIColor.blue

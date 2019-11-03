@@ -13,6 +13,7 @@
 		D38AA85F236D7A9700774378 /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38AA85E236D7A9700774378 /* LocationListViewController.swift */; };
 		D38AA861236D810900774378 /* LocationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38AA860236D810900774378 /* LocationListCell.swift */; };
 		D38AA863236D8C1F00774378 /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38AA862236D8C1F00774378 /* TripViewController.swift */; };
+		D38AA865236E8A8100774378 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38AA864236E8A8100774378 /* Trip.swift */; };
 		D3B40E26236A796C009B2D9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B40E25236A796C009B2D9E /* AppDelegate.swift */; };
 		D3B40E28236A796C009B2D9E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B40E27236A796C009B2D9E /* ViewController.swift */; };
 		D3B40E2B236A796C009B2D9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3B40E29236A796C009B2D9E /* Main.storyboard */; };
@@ -52,6 +53,7 @@
 		D38AA85E236D7A9700774378 /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 		D38AA860236D810900774378 /* LocationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListCell.swift; sourceTree = "<group>"; };
 		D38AA862236D8C1F00774378 /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
+		D38AA864236E8A8100774378 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		D3B40E22236A796C009B2D9E /* FIT5140_FinalAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FIT5140_FinalAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B40E25236A796C009B2D9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3B40E27236A796C009B2D9E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				D3EFC69B236C4173002DC2DC /* CurrentValue.swift */,
 				D3EFC69D236D29A8002DC2DC /* Location.swift */,
 				D38AA860236D810900774378 /* LocationListCell.swift */,
+				D38AA864236E8A8100774378 /* Trip.swift */,
 			);
 			path = FIT5140_FinalAssignment;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D38AA865236E8A8100774378 /* Trip.swift in Sources */,
 				D3EFC699236C4059002DC2DC /* DatabaseProtocol.swift in Sources */,
 				D3EFC698236C4059002DC2DC /* FirebaseController.swift in Sources */,
 				D3EFC69E236D29A8002DC2DC /* Location.swift in Sources */,

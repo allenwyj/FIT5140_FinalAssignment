@@ -15,7 +15,7 @@ enum DatabaseChange {
 }
 
 enum ListenerType {
-//    case colorData
+    case tripsData
 //    case temperatureData
     case currentValue
     case all
@@ -23,7 +23,7 @@ enum ListenerType {
 
 protocol DatabaseListener: AnyObject {
     var listenerType: ListenerType {get set}
-//    func onColorChange(change: DatabaseChange, colorDataList: [ColorData])
+    func onTripsChange(change: DatabaseChange, tripsList: [Trip])
 //    func onTemperatureChange(change: DatabaseChange, temperatureDataList: [TemperatureData])
     func onCurrentValuesChange(change: DatabaseChange, currentValueDataList: [CurrentValue])
 }

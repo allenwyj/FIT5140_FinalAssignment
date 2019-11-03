@@ -114,10 +114,29 @@ class MapScreenViewController: UIViewController {
         let db = Firestore.firestore()
         let docRef = db.collection("currentValues").document("currentLocation")
         
-        docRef.getDocument { (document, error) in
+        let currentUser = Auth.auth().currentUser
+        let currentUserRef = db.collection("users").document(currentUser!.uid)
+        
+        // TESTING
+        let trip = currentUserRef.collection("trips").document("trip1")
+        trip.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                
+                print("Document data: \(dataDescription)")
+            } else {
+                print("Document does not exist")
+            }
+        }
+        
+        // Fetching data from currentValues subcollection in users collection
+        let carLocationRef = currentUserRef.collection("currentValues").document("currentLocation")
+        
+        carLocationRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 print("Document data: \(dataDescription)")
+                
                 let currentLocation = document.data()
                 let lat = (currentLocation!["latitude"] as! NSString).doubleValue
                 let long = (currentLocation!["longitude"] as! NSString).doubleValue

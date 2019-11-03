@@ -100,6 +100,9 @@ class SignUpViewController: UIViewController {
                         }
                     })
                     
+                    // TO DO: Create default document when the collection is created.
+                    
+                    
                 }
             }
             

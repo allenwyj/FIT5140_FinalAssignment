@@ -16,11 +16,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var listeners = MulticastDelegate<DatabaseListener>()
     var authController: Auth
     var database: Firestore
-//    var rgbDataRef: CollectionReference?
-//    var tempDataRef: CollectionReference?
+    var tripsRef: CollectionReference?
     var currentValuesRef: CollectionReference?
-//    var colorDataList: [ColorData]
-//    var temperatureDataList: [TemperatureData]
+    var tripsList: [Trip]
     var currentValueDataList: [CurrentValue]
     
     override init() {
@@ -29,8 +27,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         // We call auth and firestore to get access to these frameworks
         authController = Auth.auth()
         database = Firestore.firestore()
-//        colorDataList = [ColorData]()
-//        temperatureDataList = [TemperatureData]()
+        tripsList = [Trip]()
         currentValueDataList = [CurrentValue]()
         
         super.init()
@@ -47,25 +44,21 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     func setUpListeners() {
-//        rgbDataRef = database.collection("rgbData")
-//        tempDataRef = database.collection("tempData")
+        // reference to current login user
+        let currentUser = authController.currentUser?.uid
+        let currentUserRef = database.collection("users").document(currentUser!)
+        
+        tripsRef = currentUserRef.collection("trips")
+        
         currentValuesRef = database.collection("currentValues")
         
-//        rgbDataRef?.addSnapshotListener { querySnapshot, error in
-//            guard (querySnapshot?.documents) != nil else {
-//
-//                return
-//            }
-//            self.parseRGBDataSnapshot(snapshot: querySnapshot!)
-//        }
-//
-//        tempDataRef?.addSnapshotListener { querySnapshot, error in
-//            guard (querySnapshot?.documents) != nil else {
-//
-//                return
-//            }
-//            self.parseTempDataSnapshot(snapshot: querySnapshot!)
-//        }
+        tripsRef?.addSnapshotListener { querySnapshot, error in
+            guard (querySnapshot?.documents) != nil else {
+                
+                return
+            }
+            self.parseTripsDataSnapshot(snapshot: querySnapshot!)
+        }
         
         currentValuesRef?.addSnapshotListener { querySnapshot, error in
             guard (querySnapshot?.documents) != nil else {
@@ -76,107 +69,51 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
-//    func parseRGBDataSnapshot(snapshot: QuerySnapshot) {
-//        snapshot.documentChanges.forEach { change in
-//
-//            let documentRef = change.document.documentID
-//            let id = change.document.documentID
-//
-//            // Firebase generates the new document then it modifies the document with putting fields.
-//            // The first step -> create a new document with document ID, listener will catch this change and start update the table,
-//            // The second step -> firebase modifies the fields of the new document, listener will catch this and go to .modified step.
-//            if change.type == .added {
-//                let newRGBData = ColorData()
-//                newRGBData.id = id
-//                colorDataList.append(newRGBData)
-//            }
-//
-//            // Therefore, this is for the second time updateing ( the new document will created in the first
-//            // updating with empty field, it won't go through this)
-//            if change.document.data().isEmpty == false {
-//                let sensorName = change.document.data()["sensorName"] as! String
-//                let timeStamp = change.document.data()["timeStamp"] as! String
-//                let red = change.document.data()["red"] as! String
-//                let green = change.document.data()["green"] as! String
-//                let blue = change.document.data()["blue"] as! String
-//
-//                // This is for modifying document data after updating in the firebase, and it's for putting values
-//                // into the new document that is sent by the server.
-//                if change.type == .modified || change.type == .added {
-//                    let index = getColorIndexByID(reference: documentRef)!
-//                    colorDataList[index].id = documentRef
-//                    colorDataList[index].sensorName = sensorName
-//                    colorDataList[index].timeStamp = timeStamp
-//                    colorDataList[index].red = red
-//                    colorDataList[index].green = green
-//                    colorDataList[index].blue = blue
-//                }
-//
-//                if change.type == .removed {
-//                    if let index = getColorIndexByID(reference: documentRef) {
-//                        colorDataList.remove(at: index)
-//                    }
-//                }
-//            }
-//        }
-//
-//        listeners.invoke { (listener) in
-//            if listener.listenerType == ListenerType.colorData || listener.listenerType == ListenerType.all {
-//                listener.onColorChange(change: .update, colorDataList: colorDataList)
-//            }
-//        }
-//    }
-//
-//    func parseTempDataSnapshot(snapshot: QuerySnapshot) {
-//        snapshot.documentChanges.forEach { change in
-//
-//            let documentRef = change.document.documentID
-//            let id = change.document.documentID
-//
-//            // Firebase generates the new document then it modifies the document with putting fields.
-//            // The first step -> create a new document with document ID, listener will catch this change and start update the table,
-//            // The second step -> firebase modifies the fields of the new document, listener will catch this and go to .modified step.
-//            if change.type == .added {
-//                let newTempData = TemperatureData()
-//                newTempData.id = id
-//                temperatureDataList.append(newTempData)
-//            }
-//
-//            // Therefore, this is for the second time updateing ( the new document will created in the first
-//            // updating with empty field, it won't go through this)
-//            if change.document.data().isEmpty == false {
-//                let sensorName = change.document.data()["sensorName"] as! String
-//                let timeStamp = change.document.data()["timeStamp"] as! String
-//                //let timeStamp = "Testing" // hard code, needs to be removed
-//                let pressure = change.document.data()["pressure"] as! String
-//                let temperature = change.document.data()["temperature"] as! String
-//
-//                // This is for modifying document data after updating in the firebase, and it's for putting values
-//                // into the new document that is sent by the server.
-//                if change.type == .modified || change.type == .added {
-//                    let index = getTemperatureIndexByID(reference: documentRef)!
-//                    temperatureDataList[index].id = documentRef
-//                    temperatureDataList[index].sensorName = sensorName
-//                    temperatureDataList[index].timeStamp = timeStamp
-//                    temperatureDataList[index].pressure = pressure
-//                    temperatureDataList[index].temperature = temperature
+    func parseTripsDataSnapshot(snapshot: QuerySnapshot) {
+        snapshot.documentChanges.forEach { change in
+
+            //let documentRef = change.document.documentID
+            let documentRef = change.document.documentID
+            
+            print("Firebase Before: \(tripsList.count)")
+            if change.type == .added {
+                let newTripData = Trip()
+                newTripData.tripName = documentRef
+                tripsList.append(newTripData)
+                print("**********\(tripsList.count)")
+            }
+            print("Firebase After: \(tripsList.count)")
+
+            if change.document.data().isEmpty == false {
+//                var points = [Location]()
+//                for point in change.document.data() {
+//                    print(point)
 //
 //                }
-//
-//                if change.type == .removed {
-//                    if let index = getTemperatureIndexByID(reference: documentRef) {
-//                        temperatureDataList.remove(at: index)
-//                    }
-//                }
-//            }
-//        }
-//
-//        listeners.invoke { (listener) in
-//            if listener.listenerType == ListenerType.temperatureData || listener.listenerType == ListenerType.all {
-//                listener.onTemperatureChange(change: .update, temperatureDataList: temperatureDataList)
-//            }
-//        }
-//    }
+                
+                if change.type == .modified || change.type == .added {
+                    let index = getTripIndexByID(reference: documentRef)!
+                    tripsList[index].tripName = documentRef
+                    print("############\(tripsList.count)")
+                    //tripsList[index].locations = points
+                }
+
+                if change.type == .removed {
+                    if let index = getTripIndexByID(reference: documentRef) {
+                        tripsList.remove(at: index)
+                    }
+                }
+            }
+        }
+
+        listeners.invoke { (listener) in
+            if listener.listenerType == ListenerType.tripsData || listener.listenerType == ListenerType.all {
+                print("invoke before: \(tripsList.count)")
+                listener.onTripsChange(change: .update, tripsList: tripsList)
+                print("invoke after: \(tripsList.count)")
+            }
+        }
+    }
     
     func parseCurrentValuesDataSnapshot(snapshot: QuerySnapshot) {
         snapshot.documentChanges.forEach { change in
@@ -196,7 +133,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             // Therefore, this is for the second time updateing ( the new document will created in the first
             // updating with empty field, it won't go through this)
             if change.document.data().isEmpty == false {
-                let timeStamp = change.document.data()["timeStamp"] as! String
+                //let timeStamp = change.document.data()["timeStamp"] as! String
                
                 
                 // This is for modifying document data after updating in the firebase, and it's for putting values
@@ -204,7 +141,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 if change.type == .modified || change.type == .added {
                     let index = 0
                     currentValueDataList[index].id = documentRef
-                    currentValueDataList[index].timeStamp = timeStamp
+                    //currentValueDataList[index].timeStamp = timeStamp
                     
                 }
             }
@@ -212,43 +149,33 @@ class FirebaseController: NSObject, DatabaseProtocol {
         
         listeners.invoke { (listener) in
             if listener.listenerType == ListenerType.currentValue || listener.listenerType == ListenerType.all {
+                
                 listener.onCurrentValuesChange(change: .update, currentValueDataList: currentValueDataList)
             }
         }
     }
     
-//    //get the index by ID
-//    func getColorIndexByID(reference: String) -> Int? {
-//        for colorData in colorDataList {
-//            if(colorData.id == reference) {
-//                return colorDataList.firstIndex(of: colorData)
-//            }
-//        }
-//
-//        return nil
-//    }
-//
-//    //get the index by ID
-//    func getTemperatureIndexByID(reference: String) -> Int? {
-//        for tempData in temperatureDataList {
-//            if(tempData.id == reference) {
-//                return temperatureDataList.firstIndex(of: tempData)
-//            }
-//        }
-//
-//        return nil
-//    }
+    //get the index by ID
+    func getTripIndexByID(reference: String) -> Int? {
+        for tripData in tripsList {
+            if(tripData.tripName == reference) {
+                return tripsList.firstIndex(of: tripData)
+            }
+        }
+
+        return nil
+    }
     
     func addListener(listener: DatabaseListener) {
+        setUpListeners()
         listeners.addDelegate(listener)
         
-//        if listener.listenerType == ListenerType.colorData || listener.listenerType == ListenerType.all {
-//            listener.onColorChange(change: .update, colorDataList: colorDataList)
-//        }
-//
-//        if listener.listenerType == ListenerType.temperatureData || listener.listenerType == ListenerType.all {
-//            listener.onTemperatureChange(change: .update, temperatureDataList: temperatureDataList)
-//        }
+        if listener.listenerType == ListenerType.tripsData || listener.listenerType == ListenerType.all {
+            print("addListener before: \(tripsList.count)")
+            listener.onTripsChange(change: .update, tripsList: tripsList)
+            print("addListener after: \(tripsList.count)")
+        }
+        
         
         if listener.listenerType == ListenerType.currentValue || listener.listenerType == ListenerType.all {
             listener.onCurrentValuesChange(change: .update, currentValueDataList: currentValueDataList)

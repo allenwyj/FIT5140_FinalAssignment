@@ -14,11 +14,13 @@ class Location: NSObject, MKAnnotation {
     var title: String?
     var subTitle: String?
     var coordinate: CLLocationCoordinate2D
+    var timeStamp: String?
     
     init(title: String, subTitle: String, coordinate: CLLocationCoordinate2D) {
         //self.image = image
         self.title = title
         self.subTitle = subTitle
         self.coordinate = coordinate
+        self.timeStamp = ""
     }
 }

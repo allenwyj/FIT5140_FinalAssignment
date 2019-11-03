@@ -16,6 +16,7 @@ class LocationListCell: UITableViewCell {
     func setLocationCell (location: Location) {
         //locationImageView.image = location.image
         locationCellLabel.text = location.title
+        print(location.title)
     }
     
 

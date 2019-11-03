@@ -14,15 +14,16 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    //var databaseController: DatabaseProtocol?
+    var databaseController: DatabaseProtocol?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        
         UITabBar.appearance().tintColor = UIColor(displayP3Red: 50/255, green: 168/255, blue: 82/255, alpha: 1)
-        //databaseController = FirebaseController()
-        FirebaseApp.configure()
+        
+        // FirebaseApp.configure()
+        databaseController = FirebaseController()
+        
         return true
     }
 
