@@ -21,8 +21,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UITabBar.appearance().tintColor = UIColor(displayP3Red: 50/255, green: 168/255, blue: 82/255, alpha: 1)
         
-        // FirebaseApp.configure()
-        databaseController = FirebaseController()
+        FirebaseApp.configure()
+        
+        // if user has no auth, the controller won't be set up
+        // once the user login/sighup databaseController is created.
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            if user != nil {
+                self.databaseController = FirebaseController()
+            }
+        }
         
         return true
     }

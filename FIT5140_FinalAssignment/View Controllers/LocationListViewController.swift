@@ -13,12 +13,14 @@ class LocationListViewController: UITableViewController, DatabaseListener {
     var trips: [Trip] = []
     weak var databaseController: DatabaseProtocol?
 
+    // var databaseController: DatabaseProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
-        
+        // databaseController = FirebaseController()
         // ERROR: Adding to table view depends on how many times do user click Map
         
         // handle the data from the firebase
@@ -61,8 +63,9 @@ class LocationListViewController: UITableViewController, DatabaseListener {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocationListCell") as! LocationListCell
         
-        // set trip info to the cell
+        // TO DO: set trip info to the cell
         cell.locationCellLabel.text = trip.tripName
+        
         
         return cell
     }

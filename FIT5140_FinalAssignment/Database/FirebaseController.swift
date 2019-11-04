@@ -24,7 +24,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     override init() {
         // To use Firebase in our application we first must run the FirebaseApp configure method
-        FirebaseApp.configure()
+        // FirebaseApp.configure()
         // We call auth and firestore to get access to these frameworks
         authController = Auth.auth()
         database = Firestore.firestore()
@@ -35,13 +35,16 @@ class FirebaseController: NSObject, DatabaseProtocol {
         
         // This will START THE PROCESS of signing in with an anonymous account
         // The closure will not execute until its recieved a message back which can be any time later
-        authController.signInAnonymously() { (authResult, error) in
-            guard authResult != nil else {
-                fatalError("Firebase authentication failed")
-            }
-            // Once we have authenticated we can attach our listeners to the firebase firestore
-            self.setUpListeners()
-        }
+//        authController.signInAnonymously() { (authResult, error) in
+//            guard authResult != nil else {
+//                fatalError("Firebase authentication failed")
+//            }
+//            // Once we have authenticated we can attach our listeners to the firebase firestore
+//            self.setUpListeners()
+//        }
+        
+        
+        setUpListeners()
     }
     
     func setUpListeners() {
@@ -196,7 +199,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     func addListener(listener: DatabaseListener) {
-        setUpListeners()
+
         listeners.addDelegate(listener)
         
         if listener.listenerType == ListenerType.tripsData || listener.listenerType == ListenerType.all {
@@ -213,7 +216,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     func removeListener(listener: DatabaseListener) {
         print("listener removed")
-        tripsList = []
+        // tripsList = []
         listeners.removeDelegate(listener)
     }
 }
