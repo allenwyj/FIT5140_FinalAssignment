@@ -48,8 +48,6 @@ class TripViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    
-    
     func addAnnotation(sourceLocation: CLLocationCoordinate2D, destinationLocation: CLLocationCoordinate2D) {
         let sourcePin = Location(title: "Start Point", subTitle: "Source", coordinate: sourceLocation)
         let destinationPin = Location(title: "End Point", subTitle: "Destination", coordinate: destinationLocation)

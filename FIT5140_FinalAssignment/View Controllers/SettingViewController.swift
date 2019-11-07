@@ -14,11 +14,20 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var editProfileButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     
+    // Create the Activity Indicator
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         setUpElements()
+        
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.gray
+        self.view.addSubview(activityIndicator)
+        
     }
     
     func setUpElements(){
@@ -27,6 +36,9 @@ class SettingViewController: UIViewController {
     }
     
     @IBAction func userLogout(_ sender: Any) {
+        
+        activityIndicator.startAnimating()
+        
         do
         {
             try Auth.auth().signOut()

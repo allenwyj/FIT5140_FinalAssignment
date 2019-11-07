@@ -84,4 +84,17 @@ class LocationListViewController: UITableViewController, DatabaseListener {
         }
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+           // let removedTripID = trips[indexPath.row].tripName
+            databaseController?.deleteTrip(selectedTrip: trips[indexPath.row])
+            // self.trips.remove(at: indexPath.row)
+            //tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.reloadData()
+        }
+    }
 }

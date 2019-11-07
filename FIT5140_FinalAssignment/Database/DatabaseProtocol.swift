@@ -31,4 +31,5 @@ protocol DatabaseListener: AnyObject {
 protocol DatabaseProtocol: AnyObject {
     func addListener(listener: DatabaseListener)
     func removeListener(listener: DatabaseListener)
+    func deleteTrip(selectedTrip: Trip)
 }

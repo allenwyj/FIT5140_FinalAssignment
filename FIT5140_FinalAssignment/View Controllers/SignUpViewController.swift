@@ -20,11 +20,20 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     
+    // Create the Activity Indicator
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         setUpElements()
+        
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.gray
+        self.view.addSubview(activityIndicator)
     }
     
     func setUpElements(){
@@ -66,14 +75,19 @@ class SignUpViewController: UIViewController {
     
     @IBAction func signupTapped(_ sender: Any) {
         
+        // Start loading
+        activityIndicator.startAnimating()
+        
         // Valdate the fields
         let error = validateFields()
         
         if error != nil {
+            
+            activityIndicator.stopAnimating()
+            
             errorLabel.text = error!
             showError(error!)
         } else {
-            
             let firstName = firstNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let lastName = lastNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -83,6 +97,8 @@ class SignUpViewController: UIViewController {
             Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
                 
                 if error != nil {
+                    self.activityIndicator.stopAnimating()
+                    
                     // Error exists while creating user
                     self.showError("Creating user unsuccessfully")
                 } else {
@@ -95,6 +111,8 @@ class SignUpViewController: UIViewController {
                     newUserReference.setData(["firstName": firstName, "lastName" : lastName, "uid" : result!.user.uid], completion: { (error) in
                         
                         if error != nil {
+                             self.activityIndicator.stopAnimating()
+                            
                             // Show error message
                             self.showError("Error! Please try to sign up again.")
                         }

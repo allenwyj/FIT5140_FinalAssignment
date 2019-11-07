@@ -18,11 +18,19 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     
+    // Create the Activity Indicator
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         setUpElements()
+        
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.gray
+        self.view.addSubview(activityIndicator)
     }
     
     func setUpElements() {
@@ -55,10 +63,15 @@ class LoginViewController: UIViewController {
 
     @IBAction func loginTapped(_ sender: Any) {
         
+        // Start Animating
+        activityIndicator.startAnimating()
+        
         // Inputs validation
         let error = validateFields()
         
         if error != nil {
+            activityIndicator.stopAnimating()
+            
             errorLabel.text = error!
             showError(error!)
         } else {
@@ -69,6 +82,8 @@ class LoginViewController: UIViewController {
             // Signing in
             Auth.auth().signIn(withEmail: email!, password: password!) { (result, error) in
                 if error != nil {
+                    self.activityIndicator.stopAnimating()
+                    
                     // login failed
                     self.errorLabel.text = error!.localizedDescription
                     self.errorLabel.alpha = 1
@@ -85,6 +100,5 @@ class LoginViewController: UIViewController {
                 }
             }
         }
-        
     }
 }

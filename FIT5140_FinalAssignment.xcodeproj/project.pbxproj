@@ -20,6 +20,12 @@
 		D3B40E2E236A796C009B2D9E /* FIT5140_FinalAssignment.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D3B40E2C236A796C009B2D9E /* FIT5140_FinalAssignment.xcdatamodeld */; };
 		D3B40E30236A796D009B2D9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3B40E2F236A796D009B2D9E /* Assets.xcassets */; };
 		D3B40E33236A796D009B2D9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3B40E31236A796D009B2D9E /* LaunchScreen.storyboard */; };
+		D3C39C3D237323DD00CD0E88 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D3C39C3C237323DD00CD0E88 /* logo.png */; };
+		D3C39C412373E93B00CD0E88 /* UnknownDriverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C39C402373E93B00CD0E88 /* UnknownDriverViewController.swift */; };
+		D3C39C442373EB8A00CD0E88 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C39C422373EB8A00CD0E88 /* ItemCollectionViewCell.swift */; };
+		D3C39C452373EB8A00CD0E88 /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3C39C432373EB8A00CD0E88 /* ItemCollectionViewCell.xib */; };
+		D3C39C472373F4B400CD0E88 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C39C462373F4B400CD0E88 /* ImageDetailViewController.swift */; };
+		D3C39C4D23740E9400CD0E88 /* icon-tick.png in Resources */ = {isa = PBXBuildFile; fileRef = D3C39C4C23740E9400CD0E88 /* icon-tick.png */; };
 		D3EFC665236A8DF8002DC2DC /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC664236A8DF8002DC2DC /* SignUpViewController.swift */; };
 		D3EFC667236A8E05002DC2DC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC666236A8E05002DC2DC /* LoginViewController.swift */; };
 		D3EFC669236A8E17002DC2DC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC668236A8E17002DC2DC /* HomeViewController.swift */; };
@@ -62,6 +68,12 @@
 		D3B40E2F236A796D009B2D9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3B40E32236A796D009B2D9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3B40E34236A796D009B2D9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3C39C3C237323DD00CD0E88 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		D3C39C402373E93B00CD0E88 /* UnknownDriverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownDriverViewController.swift; sourceTree = "<group>"; };
+		D3C39C422373EB8A00CD0E88 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		D3C39C432373EB8A00CD0E88 /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
+		D3C39C462373F4B400CD0E88 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
+		D3C39C4C23740E9400CD0E88 /* icon-tick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-tick.png"; sourceTree = "<group>"; };
 		D3EFC664236A8DF8002DC2DC /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		D3EFC666236A8E05002DC2DC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D3EFC668236A8E17002DC2DC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +168,8 @@
 				D3EFC69D236D29A8002DC2DC /* Location.swift */,
 				D38AA860236D810900774378 /* LocationListCell.swift */,
 				D38AA864236E8A8100774378 /* Trip.swift */,
+				D3C39C422373EB8A00CD0E88 /* ItemCollectionViewCell.swift */,
+				D3C39C432373EB8A00CD0E88 /* ItemCollectionViewCell.xib */,
 			);
 			path = FIT5140_FinalAssignment;
 			sourceTree = "<group>";
@@ -167,11 +181,13 @@
 				D3EFC664236A8DF8002DC2DC /* SignUpViewController.swift */,
 				D3EFC666236A8E05002DC2DC /* LoginViewController.swift */,
 				D3EFC668236A8E17002DC2DC /* HomeViewController.swift */,
-				D3EFC692236C0EC3002DC2DC /* MapScreenViewController.swift */,
 				D3EFC69F236D3D94002DC2DC /* MainTabBarController.swift */,
 				D38AA85A236D51B600774378 /* SettingViewController.swift */,
+				D3EFC692236C0EC3002DC2DC /* MapScreenViewController.swift */,
 				D38AA85E236D7A9700774378 /* LocationListViewController.swift */,
 				D38AA862236D8C1F00774378 /* TripViewController.swift */,
+				D3C39C402373E93B00CD0E88 /* UnknownDriverViewController.swift */,
+				D3C39C462373F4B400CD0E88 /* ImageDetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -188,6 +204,7 @@
 		D3EFC67B236AC795002DC2DC /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				D3C39C3C237323DD00CD0E88 /* logo.png */,
 				D3EFC68C236BFDAB002DC2DC /* icon-camera.png */,
 				D3EFC68E236BFDAB002DC2DC /* icon-home.png */,
 				D3EFC68D236BFDAB002DC2DC /* icon-map.png */,
@@ -196,6 +213,7 @@
 				D3EFC67E236AD109002DC2DC /* binoculars.png */,
 				D3EFC67C236ACA0C002DC2DC /* video.mp4 */,
 				D38AA85C236D6C3200774378 /* icon-clock.png */,
+				D3C39C4C23740E9400CD0E88 /* icon-tick.png */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -271,9 +289,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3EFC67D236ACA0C002DC2DC /* video.mp4 in Resources */,
+				D3C39C4D23740E9400CD0E88 /* icon-tick.png in Resources */,
 				D3EFC690236BFDAB002DC2DC /* icon-map.png in Resources */,
 				D3B40E33236A796D009B2D9E /* LaunchScreen.storyboard in Resources */,
 				D3EFC671236AA0BC002DC2DC /* GoogleService-Info.plist in Resources */,
+				D3C39C3D237323DD00CD0E88 /* logo.png in Resources */,
 				D3EFC687236B056A002DC2DC /* map.jpg in Resources */,
 				D3EFC686236B056A002DC2DC /* monitoring.jpg in Resources */,
 				D3EFC67F236AD109002DC2DC /* binoculars.png in Resources */,
@@ -281,6 +301,7 @@
 				D3EFC683236AF527002DC2DC /* ItemTableViewCell.xib in Resources */,
 				D3B40E2B236A796C009B2D9E /* Main.storyboard in Resources */,
 				D3EFC68F236BFDAB002DC2DC /* icon-camera.png in Resources */,
+				D3C39C452373EB8A00CD0E88 /* ItemCollectionViewCell.xib in Resources */,
 				D3EFC691236BFDAB002DC2DC /* icon-home.png in Resources */,
 				D38AA85D236D6C3200774378 /* icon-clock.png in Resources */,
 			);
@@ -349,12 +370,15 @@
 				D3B40E26236A796C009B2D9E /* AppDelegate.swift in Sources */,
 				D3EFC665236A8DF8002DC2DC /* SignUpViewController.swift in Sources */,
 				D3EFC667236A8E05002DC2DC /* LoginViewController.swift in Sources */,
+				D3C39C472373F4B400CD0E88 /* ImageDetailViewController.swift in Sources */,
 				D38AA85F236D7A9700774378 /* LocationListViewController.swift in Sources */,
 				D3EFC69A236C4059002DC2DC /* MulticastDelegate.swift in Sources */,
 				D3B40E2E236A796C009B2D9E /* FIT5140_FinalAssignment.xcdatamodeld in Sources */,
 				D3EFC69C236C4173002DC2DC /* CurrentValue.swift in Sources */,
+				D3C39C412373E93B00CD0E88 /* UnknownDriverViewController.swift in Sources */,
 				D3EFC669236A8E17002DC2DC /* HomeViewController.swift in Sources */,
 				D3EFC689236BCD07002DC2DC /* User.swift in Sources */,
+				D3C39C442373EB8A00CD0E88 /* ItemCollectionViewCell.swift in Sources */,
 				D3EFC67A236AB85D002DC2DC /* Constants.swift in Sources */,
 				D3EFC6A0236D3D94002DC2DC /* MainTabBarController.swift in Sources */,
 			);
