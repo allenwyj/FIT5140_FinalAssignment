@@ -391,7 +391,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Yjd-YT-cwh">
-                                <rect key="frame" x="5" y="93" width="414" height="725"/>
+                                <rect key="frame" x="5" y="93" width="404" height="798"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qA2-yQ-jw0">
                                     <size key="itemSize" width="50" height="50"/>
@@ -413,10 +413,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Yjd-YT-cwh" firstAttribute="trailing" secondItem="AuG-bL-ZN6" secondAttribute="trailing" constant="5" id="17M-0l-D0W"/>
-                            <constraint firstItem="Yjd-YT-cwh" firstAttribute="top" secondItem="AuG-bL-ZN6" secondAttribute="top" constant="5" id="Pma-Hi-Iu2"/>
-                            <constraint firstItem="Yjd-YT-cwh" firstAttribute="leading" secondItem="AuG-bL-ZN6" secondAttribute="leading" constant="5" id="UIv-pX-cB0"/>
-                            <constraint firstItem="Yjd-YT-cwh" firstAttribute="bottom" secondItem="AuG-bL-ZN6" secondAttribute="bottom" constant="5" id="vbx-iD-Bre"/>
+                            <constraint firstItem="Yjd-YT-cwh" firstAttribute="leading" secondItem="AuG-bL-ZN6" secondAttribute="leading" constant="5" id="Cec-mM-b9Y"/>
+                            <constraint firstAttribute="bottom" secondItem="Yjd-YT-cwh" secondAttribute="bottom" constant="5" id="PF5-op-Dmt"/>
+                            <constraint firstItem="AuG-bL-ZN6" firstAttribute="trailing" secondItem="Yjd-YT-cwh" secondAttribute="trailing" constant="5" id="Xcj-AF-Fzx"/>
+                            <constraint firstItem="Yjd-YT-cwh" firstAttribute="top" secondItem="AuG-bL-ZN6" secondAttribute="top" constant="5" id="yTF-kY-weF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="AuG-bL-ZN6"/>
                     </view>
@@ -439,19 +439,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h8X-Fb-IVp">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vi6-ko-eIs">
+                                <rect key="frame" x="3" y="787" width="408" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="h8X-Fb-IVp" secondAttribute="bottom" id="Smz-rt-9bv"/>
-                            <constraint firstItem="h8X-Fb-IVp" firstAttribute="leading" secondItem="HZZ-2n-b0L" secondAttribute="leading" id="Szv-ZL-RlJ"/>
-                            <constraint firstItem="h8X-Fb-IVp" firstAttribute="top" secondItem="HZZ-2n-b0L" secondAttribute="top" id="hwn-YA-Xip"/>
-                            <constraint firstItem="HZZ-2n-b0L" firstAttribute="trailing" secondItem="h8X-Fb-IVp" secondAttribute="trailing" id="rCk-sP-9K8"/>
+                            <constraint firstItem="h8X-Fb-IVp" firstAttribute="top" secondItem="HZZ-2n-b0L" secondAttribute="top" id="GPF-k5-UKB"/>
+                            <constraint firstItem="HZZ-2n-b0L" firstAttribute="trailing" secondItem="vi6-ko-eIs" secondAttribute="trailing" constant="3" id="IeC-iM-yzp"/>
+                            <constraint firstItem="HZZ-2n-b0L" firstAttribute="bottom" secondItem="vi6-ko-eIs" secondAttribute="bottom" constant="3" id="X2C-1G-pkq"/>
+                            <constraint firstItem="h8X-Fb-IVp" firstAttribute="leading" secondItem="HZZ-2n-b0L" secondAttribute="leading" id="bDG-Dy-00p"/>
+                            <constraint firstItem="h8X-Fb-IVp" firstAttribute="bottom" secondItem="HZZ-2n-b0L" secondAttribute="bottom" id="tAF-IT-Eju"/>
+                            <constraint firstItem="h8X-Fb-IVp" firstAttribute="trailing" secondItem="HZZ-2n-b0L" secondAttribute="trailing" id="wKc-Bi-3OQ"/>
+                            <constraint firstItem="vi6-ko-eIs" firstAttribute="leading" secondItem="HZZ-2n-b0L" secondAttribute="leading" constant="3" id="zDR-kE-4nV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HZZ-2n-b0L"/>
                     </view>
                     <connections>
+                        <outlet property="imageLabel" destination="vi6-ko-eIs" id="stI-BQ-8eu"/>
                         <outlet property="imageView" destination="h8X-Fb-IVp" id="yu0-Bh-ZQq"/>
                     </connections>
                 </viewController>

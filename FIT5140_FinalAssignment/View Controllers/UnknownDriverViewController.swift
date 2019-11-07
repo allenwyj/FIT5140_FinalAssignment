@@ -10,9 +10,10 @@
 import UIKit
 import Firebase
 
-//struct Item {
-//    var imageName: String
-//}
+struct Item {
+    var imageName: String
+    var image: UIImage
+}
 
 class UnknownDriverViewController: UIViewController {
 
@@ -26,8 +27,11 @@ class UnknownDriverViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     //var items: [Item] = [Item(imageName: "map.jpg"), Item(imageName: "binoculars.png"), Item(imageName: "monitoring.jpg"), Item(imageName: "icon-clock.png"), Item(imageName: "map.jpg"), Item(imageName: "binoculars.png"), Item(imageName: "monitoring.jpg"), Item(imageName: "icon-clock.png")]
-    
-    var items = [UIImage]()
+    var items = [Item]()
+    //var items = [UIImage]()
+    //var imageURL = [String]()
+    // Create the Activity Indicator
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
     var collectionViewFlowLayout: UICollectionViewFlowLayout!
     let cellIdentifier = "ItemCollectionViewCell"
@@ -75,17 +79,18 @@ class UnknownDriverViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.gray
+        self.view.addSubview(activityIndicator)
 
+        getImageFromFireStorage()
         print("000000000000000000000")
         // Do any additional setup after loading the view.
         setupBarButtonItems()
         setupCollectionView()
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        getImageFromFireStorage()
-        print(items.count)
     }
 
     override func viewWillLayoutSubviews() {
@@ -135,13 +140,15 @@ class UnknownDriverViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let image = sender as! Item
-//
-//        if segue.identifier == imageListToDetailSegue {
-//            if let vc = segue.destination as? ImageDetailViewController {
-//                vc.imageName = image.imageName
-//            }
-//        }
+        let image = sender as! Item
+        //let image = sender as! UIImage
+        if segue.identifier == imageListToDetailSegue {
+            if let vc = segue.destination as? ImageDetailViewController {
+                vc.image = image.image
+                vc.imageName = image.imageName
+                
+            }
+        }
     }
     
     @objc func didSelectButtonClicked(_ sender: UIBarButtonItem) {
@@ -152,7 +159,12 @@ class UnknownDriverViewController: UIViewController {
     }
     
     @objc func didDeleteButtonClicked(_ sender: UIBarButtonItem) {
+        activityIndicator.startAnimating()
+        
         var deleteNeededIndexPaths: [IndexPath] = []
+        let ref = Firestore.firestore().collection("raspberryPiData").document("raspberryPi1")
+        let storageRef = Storage.storage()
+        
         for (key, value) in dictionarySelectedIndexPath {
             if value {
                 deleteNeededIndexPaths.append(key)
@@ -160,11 +172,31 @@ class UnknownDriverViewController: UIViewController {
         }
         
         for item in deleteNeededIndexPaths.sorted(by: { $0.item > $1.item}) {
+            
+            // Delete image from firebase storage
+            let deleteImage = items[item.item].imageName
+            storageRef.reference(withPath: deleteImage).delete { (error) in
+                if let error = error {
+                    print("Error:\(error.localizedDescription)")
+                } else {
+                    print("Successfully deleted \(deleteImage)")
+                }
+            }
+            
             items.remove(at: item.item)
         }
         
+        // remove imageURL from the firestore
+        var itemName = [String]()
+        for item in items {
+            itemName.append(item.imageName)
+        }
+        
+        ref.setData(["unknownDrivers" : itemName], merge: true)
+        
         collectionView.deleteItems(at: deleteNeededIndexPaths)
         dictionarySelectedIndexPath.removeAll()
+        activityIndicator.stopAnimating()
     }
 }
 
@@ -176,8 +208,9 @@ extension UnknownDriverViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ItemCollectionViewCell
         
+        
         //cell.imageView.image = UIImage(named: items[indexPath.item].imageName)
-        cell.imageView.image = items[indexPath.item]
+        cell.imageView.image = items[indexPath.item].image
         
         
         return cell
@@ -203,25 +236,71 @@ extension UnknownDriverViewController: UICollectionViewDelegate, UICollectionVie
     }
     
     func getImageFromFireStorage() {
-        let storageRef = Storage.storage().reference(withPath: "1572760723.61057 Unkown 0.jpg")
+        activityIndicator.startAnimating()
+        //let storageRef = Storage.storage().reference(withPath: "1572760723.61057 Unkown 0.jpg")
         
-        print("************************")
+        let storageRef = Storage.storage().reference()
         print(storageRef.name)
-        var pic = UIImage()
-        storageRef.getData(maxSize: 4 * 1024 * 1024) { [weak self] (data, error) in
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-                print("=======================================")
-                return
+//        storageRef.listAll { (storageListResult, error) in
+//            for i in storageListResult.items {
+//                i.value(forKey: "name")
+//                print(i.value(forKey: "name"))
+//
+//                i.getData(maxSize: 4 * 1024 * 1024) { (data, error) in
+//                    if let error = error {
+//                        self.activityIndicator.stopAnimating()
+//                        print("Error: \(error.localizedDescription)")
+//                        return
+//                    } else {
+//                        //self?.iv.image = UIImage(data: data)
+//
+//                        let pic = UIImage(data: data!)
+//                        self.items.append(pic!)
+//                        print("inside appending is finished")
+//                        print("Loading...\(self.items.count)")
+//
+//
+//                        self.collectionView.reloadData()
+//                        self.activityIndicator.stopAnimating()
+//                    }
+//                }
+//            }
+//        }
+        
+        // NOTE: Need to save the file name in the firestore as well
+        let database = Firestore.firestore()
+        let ref = database.collection("raspberryPiData").document("raspberryPi1")
+        var imageURL = [String]()
+        
+        ref.getDocument { (document, error) in
+            if let document = document, document.exists {
+                imageURL = document.data()!["unknownDrivers"] as! [String]
+                print(imageURL)
             }
-            if let data = data {
-                //self?.iv.image = UIImage(data: data)
-                pic = UIImage(data: data)!
-                
-                print("YEAHHHHHHHHHH")
+
+            for i in imageURL {
+                //print(i)
+                Storage.storage().reference(withPath: i).getData(maxSize: 4 * 1024 * 1024) { (data, error) in
+                    if let error = error {
+                        self.activityIndicator.stopAnimating()
+                        print("Error: \(error.localizedDescription)")
+                        return
+                    } else {
+                        //self?.iv.image = UIImage(data: data)
+                        
+                        let pic = UIImage(data: data!)
+                        let itemImage = Item(imageName: i, image: pic!)
+                        //self.items.append(pic!)
+                        self.items.append(itemImage)
+                        print("inside appending is finished")
+                        print("Loading...\(self.items.count)")
+                        
+                        self.collectionView.reloadData()
+                        //self.activityIndicator.stopAnimating()
+                    }
+                    self.activityIndicator.stopAnimating()
+                }
             }
         }
-        items.append(pic)
-        print("after append: \(items.count)")
     }
 }

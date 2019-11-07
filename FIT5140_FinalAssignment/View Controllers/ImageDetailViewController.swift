@@ -11,6 +11,9 @@ import UIKit
 class ImageDetailViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageLabel: UILabel!
+    //var imageName: String!
+    var image: UIImage!
     var imageName: String!
     
     override func viewDidLoad() {
@@ -22,11 +25,16 @@ class ImageDetailViewController: UIViewController {
     }
     
     func setUpImageView() {
-        guard let name = imageName else { return }
+//        guard let image = imageName else { return }
+//
+//        if let image = UIImage(named: name) {
+//            imageView.image = image
+//        }
         
-        if let image = UIImage(named: name) {
-            imageView.image = image
-        }
+        guard let image = image else { return }
+        
+        imageView.image = image
+        imageLabel.text = imageName
     }
 
 }
