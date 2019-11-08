@@ -18,6 +18,7 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var distanceButton: UIButton!
     @IBOutlet weak var saveDriverButton: UIButton!
     @IBOutlet weak var clearDriverButton: UIButton!
+    @IBOutlet weak var connectPiButton: UIButton!
     @IBOutlet weak var editProfileButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     
@@ -68,29 +69,6 @@ class SettingViewController: UIViewController {
         }
     }
     
-//    @IBAction func setUpDistance(_ sender: Any) {
-//        activityIndicator.startAnimating()
-//        let dbRef = database.collection("raspberryPiData").document("raspberryPi1")
-//
-//        // setDistance: 0 => default value, 1 => start raspberry pi to setup distance
-//        dbRef.setData(["setDistance" : "2"], merge: true) { err in
-//            if let err = err {
-//                print("Error writing document: \(err)")
-//                self.activityIndicator.stopAnimating()
-//                self.displayMessage(err as! String, "Error")
-//            } else {
-//                print("Document successfully written!")
-//                // self.activityIndicator.stopAnimating()
-//                self.setDistanceIsDefault()
-//
-//            }
-//        }
-//    }
-    
-    @IBAction func setUpDistance(_ sender: Any) {
-        getDocumentBasedOnClicked(fieldName: "setDistance")
-    }
-    
     func getDocumentBasedOnClicked(fieldName: String) {
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
@@ -106,47 +84,48 @@ class SettingViewController: UIViewController {
             } else {
                 print("Document successfully written!")
                 // self.activityIndicator.stopAnimating()
-                self.setDistanceIsDefault(fieldName: fieldName)
+                self.setTimerToCheckFirestore(fieldName: fieldName)
                 
             }
         }
+    }
+    
+    @IBAction func setUpDistance(_ sender: Any) {
+        getDocumentBasedOnClicked(fieldName: "setDistance")
     }
     
     @IBAction func setUpDriver(_ sender: Any) {
         getDocumentBasedOnClicked(fieldName: "takePictures")
     }
     
-//    @IBAction func setUpDriver(_ sender: Any) {
-//        activityIndicator.startAnimating()
-//        let dbRef = database.collection("raspberryPiData").document("raspberryPi1")
-//
-//        // setDistance: 0 => default value, 1 => start raspberry pi to setup distance
-//        dbRef.setData(["takePictures" : "2"], merge: true) { err in
-//            if let err = err {
-//                print("Error writing document: \(err)")
-//                self.activityIndicator.stopAnimating()
-//                self.displayMessage(err as! String, "Error")
-//            } else {
-//                print("Document successfully written!")
-//                // self.activityIndicator.stopAnimating()
-//                self.setDistanceIsDefault()
-//
-//            }
-//        }
-//    }
-    
     @IBAction func clearAllDriver(_ sender: Any) {
         getDocumentBasedOnClicked(fieldName: "deleteDrivers")
     }
     
-    func setDistanceIsDefault(fieldName: String) {
+    @IBAction func connectToRaspberryPi(_ sender: Any) {
+        let uid = userAuth!.uid
+        let dbRef = database.collection("raspberryPiData").document("raspberryPi1")
+        let fieldName = "loginUsers"
+        
+        // add the uid to the firestore if it doesn't exist in the array
+        dbRef.updateData([
+            fieldName : FieldValue.arrayUnion([uid])
+            ])
+        
+//        dbRef.updateData([
+//            fieldName : FieldValue.arrayRemove([uid])
+//            ])
+    }
+    
+    
+    func setTimerToCheckFirestore(fieldName: String) {
         // 0 is default, 1 is setting
         // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(checkDistance), userInfo: fieldName, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(checkDefaultValue), userInfo: fieldName, repeats: true)
         
     }
     
-    @objc func checkDistance(sender: Timer) {
+    @objc func checkDefaultValue(sender: Timer) {
         let fieldName = sender.userInfo as! String
         print(fieldName)
         let dbRef = database.collection("raspberryPiData").document("raspberryPi1")
