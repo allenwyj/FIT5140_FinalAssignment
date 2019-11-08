@@ -32,10 +32,18 @@ class Styles {
     
     static func styleFilledButton(_ button:UIButton) {
         
+        var cornerRadius : CGFloat = 0
         // Filled rounded corner style
         //button.backgroundColor = UIColor.init(red: 48/255, green: 173/255, blue: 99/255, alpha: 1)
-        button.backgroundColor = UIColor.init(red: 0/255, green: 139/255, blue: 255/255, alpha: 1)
-        button.layer.cornerRadius = 25.0
+        if button.accessibilityIdentifier == "LogoutButton"{
+            button.backgroundColor = UIColor.init(red: 255/255, green: 51/255, blue: 51/255, alpha: 1)
+            cornerRadius = 5.0
+        } else {
+            cornerRadius = 25.0
+            button.backgroundColor = UIColor.init(red: 0/255, green: 139/255, blue: 255/255, alpha: 1)
+        }
+        
+        button.layer.cornerRadius = cornerRadius
         button.tintColor = UIColor.white
     }
     

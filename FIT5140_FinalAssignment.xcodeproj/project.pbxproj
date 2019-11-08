@@ -182,12 +182,12 @@
 				D3EFC666236A8E05002DC2DC /* LoginViewController.swift */,
 				D3EFC668236A8E17002DC2DC /* HomeViewController.swift */,
 				D3EFC69F236D3D94002DC2DC /* MainTabBarController.swift */,
-				D38AA85A236D51B600774378 /* SettingViewController.swift */,
 				D3EFC692236C0EC3002DC2DC /* MapScreenViewController.swift */,
 				D38AA85E236D7A9700774378 /* LocationListViewController.swift */,
 				D38AA862236D8C1F00774378 /* TripViewController.swift */,
 				D3C39C402373E93B00CD0E88 /* UnknownDriverViewController.swift */,
 				D3C39C462373F4B400CD0E88 /* ImageDetailViewController.swift */,
+				D38AA85A236D51B600774378 /* SettingViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";

@@ -129,24 +129,29 @@ class MapScreenViewController: UIViewController {
             }
         }
         
-        // Fetching data from currentValues subcollection in users collection
-        let carLocationRef = currentUserRef.collection("currentValues").document("currentLocation")
-        
+        // Fetching data from currentValues in the raspberry pi collection
+        //let carLocationRef = currentUserRef.collection("currentValues").document("currentLocation")
+        let carLocationRef = db.collection("raspberryPiData").document("raspberryPi1")
         carLocationRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 print("Document data: \(dataDescription)")
                 
-                let currentLocation = document.data()
-                let lat = (currentLocation!["latitude"] as! NSString).doubleValue
-                let long = (currentLocation!["longitude"] as! NSString).doubleValue
-                let time = currentLocation!["time"] as! String
+                //let currentLocation = document.data()!["currentLocation"]
                 
+                let a = document.data()!["currentLocation"]
+                //print(currentLocation! as! [String:Any])
+                let currentLocation = a! as! [String:Any]
+                
+                let lat = (currentLocation["latitude"] as! NSString).doubleValue
+                let long = (currentLocation["longitude"] as! NSString).doubleValue
+                let time = currentLocation["timeStamp"] as! String
+
                 self.updateTimeStamp(timeStamp: time)
                 self.addAnnotation(latitude: lat, longitude: long)
                 var currentCarLocation = CLLocation()
                 currentCarLocation = CLLocation(latitude: lat, longitude: long)
-                
+
                 self.showAddress(currentCarLocation: currentCarLocation)
                 
             } else {

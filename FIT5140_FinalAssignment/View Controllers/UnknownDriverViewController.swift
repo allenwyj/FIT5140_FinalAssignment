@@ -117,10 +117,11 @@ class UnknownDriverViewController: UIViewController {
     
     func setupCollectionViewItemSize() {
         if collectionViewFlowLayout == nil {
-            let numberOfItemForRow: CGFloat = 2
+            let numberOfItemForRow: CGFloat = 3
             let lineSpacing: CGFloat = 10
             let interItemSpacing: CGFloat = 10
             
+            // Based on the device width
             let width = (collectionView.frame.width - (numberOfItemForRow - 1) * interItemSpacing) / numberOfItemForRow
             
             // make the collection view as square
@@ -207,18 +208,16 @@ extension UnknownDriverViewController: UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ItemCollectionViewCell
-        
-        
+
         //cell.imageView.image = UIImage(named: items[indexPath.item].imageName)
         cell.imageView.image = items[indexPath.item].image
-        
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("didSelectItemAt: \(indexPath)")
-        
+        print("didSelectItemAt: \(indexPath.item)")
+        print("didSelectItemName: \(items[indexPath.item])")
         switch mMode {
         case .view:
             collectionView.deselectItem(at: indexPath, animated: true)
@@ -237,35 +236,9 @@ extension UnknownDriverViewController: UICollectionViewDelegate, UICollectionVie
     
     func getImageFromFireStorage() {
         activityIndicator.startAnimating()
-        //let storageRef = Storage.storage().reference(withPath: "1572760723.61057 Unkown 0.jpg")
-        
+
         let storageRef = Storage.storage().reference()
         print(storageRef.name)
-//        storageRef.listAll { (storageListResult, error) in
-//            for i in storageListResult.items {
-//                i.value(forKey: "name")
-//                print(i.value(forKey: "name"))
-//
-//                i.getData(maxSize: 4 * 1024 * 1024) { (data, error) in
-//                    if let error = error {
-//                        self.activityIndicator.stopAnimating()
-//                        print("Error: \(error.localizedDescription)")
-//                        return
-//                    } else {
-//                        //self?.iv.image = UIImage(data: data)
-//
-//                        let pic = UIImage(data: data!)
-//                        self.items.append(pic!)
-//                        print("inside appending is finished")
-//                        print("Loading...\(self.items.count)")
-//
-//
-//                        self.collectionView.reloadData()
-//                        self.activityIndicator.stopAnimating()
-//                    }
-//                }
-//            }
-//        }
         
         // NOTE: Need to save the file name in the firestore as well
         let database = Firestore.firestore()
@@ -274,12 +247,14 @@ extension UnknownDriverViewController: UICollectionViewDelegate, UICollectionVie
         
         ref.getDocument { (document, error) in
             if let document = document, document.exists {
+                // Get the imagesURL array from the field "unknowDrivers"
                 imageURL = document.data()!["unknownDrivers"] as! [String]
+                //let imageURLTemp = document.data()!["unknownDrivers"] as! [String]
+                //imageURL = imageURLTemp.sorted(by: { $0.prefix(18) < $1.prefix(18) })
                 print(imageURL)
             }
 
             for i in imageURL {
-                //print(i)
                 Storage.storage().reference(withPath: i).getData(maxSize: 4 * 1024 * 1024) { (data, error) in
                     if let error = error {
                         self.activityIndicator.stopAnimating()
@@ -287,19 +262,33 @@ extension UnknownDriverViewController: UICollectionViewDelegate, UICollectionVie
                         return
                     } else {
                         //self?.iv.image = UIImage(data: data)
+                        print(i)
                         
                         let pic = UIImage(data: data!)
                         let itemImage = Item(imageName: i, image: pic!)
+                        print(itemImage.imageName)
                         //self.items.append(pic!)
                         self.items.append(itemImage)
-                        print("inside appending is finished")
+                        print("inside appending is finished: \(itemImage.imageName)")
                         print("Loading...\(self.items.count)")
                         
-                        self.collectionView.reloadData()
+//                        self.collectionView.reloadData()
+//                        print("loadingggggg")
                         //self.activityIndicator.stopAnimating()
+                        
                     }
+                    
+                    // sort the items Array based on the timeStamp
+                    self.items = self.items.sorted(by: { ($0.imageName.prefix(18), $0.imageName.suffix(1)) < ($1.imageName.prefix(18), $1.imageName.suffix(1)) })
+                    
+                    //print(self.items)
+                    self.collectionView.reloadData()
                     self.activityIndicator.stopAnimating()
                 }
+            }
+            
+            if imageURL.count == 0 {
+                self.activityIndicator.stopAnimating()
             }
         }
     }
