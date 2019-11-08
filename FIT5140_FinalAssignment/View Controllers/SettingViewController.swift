@@ -23,7 +23,7 @@ class SettingViewController: UIViewController {
     
     // Create the Activity Indicator
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
-    
+    var timer = Timer()
     let database = Firestore.firestore()
     let userAuth = Auth.auth().currentUser
     
@@ -32,15 +32,19 @@ class SettingViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setUpElements()
+        setupActivityIndicator()
         
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        getUserName()
+        UIApplication.shared.endIgnoringInteractionEvents()
+    }
+    
+    func setupActivityIndicator() {
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
         activityIndicator.style = UIActivityIndicatorView.Style.gray
         self.view.addSubview(activityIndicator)
-        
-        activityIndicator.startAnimating()
-        getUserName()
-        
     }
     
     func setUpElements(){
@@ -64,32 +68,103 @@ class SettingViewController: UIViewController {
         }
     }
     
+//    @IBAction func setUpDistance(_ sender: Any) {
+//        activityIndicator.startAnimating()
+//        let dbRef = database.collection("raspberryPiData").document("raspberryPi1")
+//
+//        // setDistance: 0 => default value, 1 => start raspberry pi to setup distance
+//        dbRef.setData(["setDistance" : "2"], merge: true) { err in
+//            if let err = err {
+//                print("Error writing document: \(err)")
+//                self.activityIndicator.stopAnimating()
+//                self.displayMessage(err as! String, "Error")
+//            } else {
+//                print("Document successfully written!")
+//                // self.activityIndicator.stopAnimating()
+//                self.setDistanceIsDefault()
+//
+//            }
+//        }
+//    }
+    
     @IBAction func setUpDistance(_ sender: Any) {
+        getDocumentBasedOnClicked(fieldName: "setDistance")
+    }
+    
+    func getDocumentBasedOnClicked(fieldName: String) {
         activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         let dbRef = database.collection("raspberryPiData").document("raspberryPi1")
         
         // setDistance: 0 => default value, 1 => start raspberry pi to setup distance
-        dbRef.setData(["setDistance" : 2], merge: true) { err in
+        dbRef.setData([fieldName : "2"], merge: true) { err in
             if let err = err {
                 print("Error writing document: \(err)")
                 self.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
                 self.displayMessage(err as! String, "Error")
             } else {
                 print("Document successfully written!")
-                self.activityIndicator.stopAnimating()
-                self.displayMessage("Distance updated successfully!", "Success")
+                // self.activityIndicator.stopAnimating()
+                self.setDistanceIsDefault(fieldName: fieldName)
+                
             }
         }
     }
     
     @IBAction func setUpDriver(_ sender: Any) {
-        
+        getDocumentBasedOnClicked(fieldName: "takePictures")
     }
+    
+//    @IBAction func setUpDriver(_ sender: Any) {
+//        activityIndicator.startAnimating()
+//        let dbRef = database.collection("raspberryPiData").document("raspberryPi1")
+//
+//        // setDistance: 0 => default value, 1 => start raspberry pi to setup distance
+//        dbRef.setData(["takePictures" : "2"], merge: true) { err in
+//            if let err = err {
+//                print("Error writing document: \(err)")
+//                self.activityIndicator.stopAnimating()
+//                self.displayMessage(err as! String, "Error")
+//            } else {
+//                print("Document successfully written!")
+//                // self.activityIndicator.stopAnimating()
+//                self.setDistanceIsDefault()
+//
+//            }
+//        }
+//    }
     
     @IBAction func clearAllDriver(_ sender: Any) {
+        getDocumentBasedOnClicked(fieldName: "deleteDrivers")
+    }
+    
+    func setDistanceIsDefault(fieldName: String) {
+        // 0 is default, 1 is setting
+        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(checkDistance), userInfo: fieldName, repeats: true)
         
     }
     
+    @objc func checkDistance(sender: Timer) {
+        let fieldName = sender.userInfo as! String
+        print(fieldName)
+        let dbRef = database.collection("raspberryPiData").document("raspberryPi1")
+        
+        dbRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                if document.data()![fieldName] as! String == "0" {
+                    self.timer.invalidate()
+                    self.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
+                    self.displayMessage("Updated successfully!", "Success")
+                }
+                
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
     
     @IBAction func userLogout(_ sender: Any) {
         
