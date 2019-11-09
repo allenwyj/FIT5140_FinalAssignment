@@ -28,14 +28,11 @@
 		D3C39C4D23740E9400CD0E88 /* icon-tick.png in Resources */ = {isa = PBXBuildFile; fileRef = D3C39C4C23740E9400CD0E88 /* icon-tick.png */; };
 		D3EFC665236A8DF8002DC2DC /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC664236A8DF8002DC2DC /* SignUpViewController.swift */; };
 		D3EFC667236A8E05002DC2DC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC666236A8E05002DC2DC /* LoginViewController.swift */; };
-		D3EFC669236A8E17002DC2DC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC668236A8E17002DC2DC /* HomeViewController.swift */; };
 		D3EFC66D236A97EF002DC2DC /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC66C236A97EF002DC2DC /* Styles.swift */; };
 		D3EFC671236AA0BC002DC2DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3EFC670236AA0BC002DC2DC /* GoogleService-Info.plist */; };
 		D3EFC67A236AB85D002DC2DC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC679236AB85D002DC2DC /* Constants.swift */; };
 		D3EFC67D236ACA0C002DC2DC /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D3EFC67C236ACA0C002DC2DC /* video.mp4 */; };
 		D3EFC67F236AD109002DC2DC /* binoculars.png in Resources */ = {isa = PBXBuildFile; fileRef = D3EFC67E236AD109002DC2DC /* binoculars.png */; };
-		D3EFC682236AF527002DC2DC /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC680236AF527002DC2DC /* ItemTableViewCell.swift */; };
-		D3EFC683236AF527002DC2DC /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3EFC681236AF527002DC2DC /* ItemTableViewCell.xib */; };
 		D3EFC686236B056A002DC2DC /* monitoring.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3EFC684236B056A002DC2DC /* monitoring.jpg */; };
 		D3EFC687236B056A002DC2DC /* map.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3EFC685236B056A002DC2DC /* map.jpg */; };
 		D3EFC689236BCD07002DC2DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC688236BCD07002DC2DC /* User.swift */; };
@@ -48,6 +45,7 @@
 		D3EFC69A236C4059002DC2DC /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC697236C4058002DC2DC /* MulticastDelegate.swift */; };
 		D3EFC69E236D29A8002DC2DC /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC69D236D29A8002DC2DC /* Location.swift */; };
 		D3EFC6A0236D3D94002DC2DC /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC69F236D3D94002DC2DC /* MainTabBarController.swift */; };
+		D3F9587E23770F0C00A7BB27 /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F9587D23770F0C00A7BB27 /* HomeScreenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,14 +73,11 @@
 		D3C39C4C23740E9400CD0E88 /* icon-tick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-tick.png"; sourceTree = "<group>"; };
 		D3EFC664236A8DF8002DC2DC /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		D3EFC666236A8E05002DC2DC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		D3EFC668236A8E17002DC2DC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D3EFC66C236A97EF002DC2DC /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		D3EFC670236AA0BC002DC2DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D3EFC679236AB85D002DC2DC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D3EFC67C236ACA0C002DC2DC /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		D3EFC67E236AD109002DC2DC /* binoculars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = binoculars.png; sourceTree = "<group>"; };
-		D3EFC680236AF527002DC2DC /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
-		D3EFC681236AF527002DC2DC /* ItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemTableViewCell.xib; sourceTree = "<group>"; };
 		D3EFC684236B056A002DC2DC /* monitoring.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = monitoring.jpg; sourceTree = "<group>"; };
 		D3EFC685236B056A002DC2DC /* map.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = map.jpg; sourceTree = "<group>"; };
 		D3EFC688236BCD07002DC2DC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -95,6 +90,7 @@
 		D3EFC697236C4058002DC2DC /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
 		D3EFC69D236D29A8002DC2DC /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D3EFC69F236D3D94002DC2DC /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		D3F9587D23770F0C00A7BB27 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
 		ECB023F1FB4F3CB7472BC419 /* Pods_FIT5140_FinalAssignment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FIT5140_FinalAssignment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -159,8 +155,6 @@
 				D3B40E2F236A796D009B2D9E /* Assets.xcassets */,
 				D3B40E34236A796D009B2D9E /* Info.plist */,
 				D3B40E2C236A796C009B2D9E /* FIT5140_FinalAssignment.xcdatamodeld */,
-				D3EFC680236AF527002DC2DC /* ItemTableViewCell.swift */,
-				D3EFC681236AF527002DC2DC /* ItemTableViewCell.xib */,
 				D3EFC688236BCD07002DC2DC /* User.swift */,
 				D3EFC69D236D29A8002DC2DC /* Location.swift */,
 				D38AA860236D810900774378 /* LocationListCell.swift */,
@@ -177,7 +171,7 @@
 				D3B40E27236A796C009B2D9E /* ViewController.swift */,
 				D3EFC664236A8DF8002DC2DC /* SignUpViewController.swift */,
 				D3EFC666236A8E05002DC2DC /* LoginViewController.swift */,
-				D3EFC668236A8E17002DC2DC /* HomeViewController.swift */,
+				D3F9587D23770F0C00A7BB27 /* HomeScreenViewController.swift */,
 				D3EFC69F236D3D94002DC2DC /* MainTabBarController.swift */,
 				D3EFC692236C0EC3002DC2DC /* MapScreenViewController.swift */,
 				D38AA85E236D7A9700774378 /* LocationListViewController.swift */,
@@ -300,7 +294,6 @@
 				D3EFC686236B056A002DC2DC /* monitoring.jpg in Resources */,
 				D3EFC67F236AD109002DC2DC /* binoculars.png in Resources */,
 				D3B40E30236A796D009B2D9E /* Assets.xcassets in Resources */,
-				D3EFC683236AF527002DC2DC /* ItemTableViewCell.xib in Resources */,
 				D3B40E2B236A796C009B2D9E /* Main.storyboard in Resources */,
 				D3EFC68F236BFDAB002DC2DC /* icon-camera.png in Resources */,
 				D3C39C452373EB8A00CD0E88 /* ItemCollectionViewCell.xib in Resources */,
@@ -363,10 +356,10 @@
 				D3EFC698236C4059002DC2DC /* FirebaseController.swift in Sources */,
 				D3EFC69E236D29A8002DC2DC /* Location.swift in Sources */,
 				D3EFC66D236A97EF002DC2DC /* Styles.swift in Sources */,
-				D3EFC682236AF527002DC2DC /* ItemTableViewCell.swift in Sources */,
 				D38AA85B236D51B600774378 /* SettingViewController.swift in Sources */,
 				D38AA861236D810900774378 /* LocationListCell.swift in Sources */,
 				D3B40E28236A796C009B2D9E /* ViewController.swift in Sources */,
+				D3F9587E23770F0C00A7BB27 /* HomeScreenViewController.swift in Sources */,
 				D3EFC693236C0EC3002DC2DC /* MapScreenViewController.swift in Sources */,
 				D38AA863236D8C1F00774378 /* TripViewController.swift in Sources */,
 				D3B40E26236A796C009B2D9E /* AppDelegate.swift in Sources */,
@@ -377,7 +370,6 @@
 				D3EFC69A236C4059002DC2DC /* MulticastDelegate.swift in Sources */,
 				D3B40E2E236A796C009B2D9E /* FIT5140_FinalAssignment.xcdatamodeld in Sources */,
 				D3C39C412373E93B00CD0E88 /* UnknownDriverViewController.swift in Sources */,
-				D3EFC669236A8E17002DC2DC /* HomeViewController.swift in Sources */,
 				D3EFC689236BCD07002DC2DC /* User.swift in Sources */,
 				D3C39C442373EB8A00CD0E88 /* ItemCollectionViewCell.swift in Sources */,
 				D3EFC67A236AB85D002DC2DC /* Constants.swift in Sources */,
