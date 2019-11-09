@@ -10,10 +10,12 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
+import UserNotifications
 
 class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
+    let db = Firestore.firestore()
     var user = User()
     var menuItems: [String] = ["Record Videos", "Edite Videos", "Reply Comments"]
 
@@ -23,29 +25,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        let currentUser = Auth.auth().currentUser
-//        let currentUserRef = Firestore.firestore().collection("users").document(currentUser!.uid)
-//        let user = User()
-//
-//        currentUserRef.getDocument { (document, error) in
-//            if let document = document, document.exists {
-//                let firstnName = document.data()!["firstName"]
-//                let lastName = document.data()!["lastName"]
-//                let uid = currentUser!.uid
-//
-//                user.firstName = firstnName as! String
-//                user.lastName = lastName as! String
-//                user.uid = uid
-//                print(user.firstName)
-//            } else {
-//                print("Document does not exist")
-//            }
-//        }
-//
-//        menuItems.append(user.firstName)
-//        menuItems.append(user.firstName)
-//        menuItems.append(user.firstName)
-//        menuItems.append(user.firstName)
+        
+
         setupTableView()
         // Do any additional setup after loading the view.
     }
@@ -54,9 +35,22 @@ class HomeViewController: UIViewController {
         let nib = UINib(nibName: "ItemTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "itemCellIdentifier")
     }
+    
+//    func checkSafety() {
+//        let carLocationRef = db.collection("raspberryPiData").document("raspberryPi1")
+//        carLocationRef.getDocument { (document, error) in
+//            if let document = document, document.exists {
+//                let a = document.data()!["alert"]
+//                print(a!)
+//
+//            } else {
+//                print("Document does not exist")
+//            }
+//        }
+//    }
 }
 
-extension HomeViewController: UITableViewDataSource {
+extension HomeViewController: UITableViewDataSource, UNUserNotificationCenterDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menuItems.count
     }

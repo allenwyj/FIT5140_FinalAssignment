@@ -13,19 +13,11 @@ class LocationListViewController: UITableViewController, DatabaseListener {
     var trips: [Trip] = []
     weak var databaseController: DatabaseProtocol?
 
-    // var databaseController: DatabaseProtocol?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
-        // databaseController = FirebaseController()
-        // ERROR: Adding to table view depends on how many times do user click Map
-        
-        // handle the data from the firebase
-        
-        // assign to the list
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,14 +38,6 @@ class LocationListViewController: UITableViewController, DatabaseListener {
         self.tableView.reloadData()
     }
     
-    func onCurrentValuesChange(change: DatabaseChange, currentValueDataList: [CurrentValue]) {
-        //
-    }
-    
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return trips.count
     }
@@ -66,7 +50,6 @@ class LocationListViewController: UITableViewController, DatabaseListener {
         // TO DO: set trip info to the cell
         cell.locationCellLabel.text = trip.tripName
         
-        
         return cell
     }
     
@@ -77,7 +60,6 @@ class LocationListViewController: UITableViewController, DatabaseListener {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "LocationListToTripViewSegue" {
             let destVC = segue.destination as! TripViewController
             destVC.trip = sender as? Trip
@@ -90,10 +72,8 @@ class LocationListViewController: UITableViewController, DatabaseListener {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-           // let removedTripID = trips[indexPath.row].tripName
             databaseController?.deleteTrip(selectedTrip: trips[indexPath.row])
-            // self.trips.remove(at: indexPath.row)
-            //tableView.deleteRows(at: [indexPath], with: .fade)
+
             tableView.reloadData()
         }
     }

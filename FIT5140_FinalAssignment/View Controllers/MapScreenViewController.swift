@@ -116,32 +116,34 @@ class MapScreenViewController: UIViewController {
         
         let currentUser = Auth.auth().currentUser
         let currentUserRef = db.collection("users").document(currentUser!.uid)
-        
-        // TESTING
-        let trip = currentUserRef.collection("trips").document("trip1")
-        trip.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                
-                print("Document data: \(dataDescription)")
-            } else {
-                print("Document does not exist")
-            }
-        }
+//
+//        // TESTING
+//        let trip = currentUserRef.collection("trips").document("trip1")
+//        trip.getDocument { (document, error) in
+//            if let document = document, document.exists {
+//                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+//
+//                print("Document data: \(dataDescription)")
+//            } else {
+//                print("Document does not exist")
+//            }
+//        }
         
         // Fetching data from currentValues in the raspberry pi collection
         //let carLocationRef = currentUserRef.collection("currentValues").document("currentLocation")
         let carLocationRef = db.collection("raspberryPiData").document("raspberryPi1")
         carLocationRef.getDocument { (document, error) in
             if let document = document, document.exists {
-                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                print("Document data: \(dataDescription)")
+//                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+//                print("Document data: \(dataDescription)")
                 
                 //let currentLocation = document.data()!["currentLocation"]
                 
-                let a = document.data()!["currentLocation"]
+                //let a = document.data()!["currentLocation"]
                 //print(currentLocation! as! [String:Any])
-                let currentLocation = a! as! [String:Any]
+                //let currentLocation = a! as! [String:Any]
+                
+                let currentLocation = document.data()!["currentLocation"] as! [String : Any]
                 
                 let lat = (currentLocation["latitude"] as! NSString).doubleValue
                 let long = (currentLocation["longitude"] as! NSString).doubleValue

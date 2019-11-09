@@ -4,10 +4,15 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>FIT5140_FinalAssignment.xcscheme_^#shared#^_</key>
+		<key>Back Ftch Test.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>23</integer>
+		</dict>
+		<key>FIT5140_FinalAssignment.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>24</integer>
 		</dict>
 	</dict>
 </dict>

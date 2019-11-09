@@ -46,7 +46,6 @@
 		D3EFC698236C4059002DC2DC /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC695236C4058002DC2DC /* FirebaseController.swift */; };
 		D3EFC699236C4059002DC2DC /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC696236C4058002DC2DC /* DatabaseProtocol.swift */; };
 		D3EFC69A236C4059002DC2DC /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC697236C4058002DC2DC /* MulticastDelegate.swift */; };
-		D3EFC69C236C4173002DC2DC /* CurrentValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC69B236C4173002DC2DC /* CurrentValue.swift */; };
 		D3EFC69E236D29A8002DC2DC /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC69D236D29A8002DC2DC /* Location.swift */; };
 		D3EFC6A0236D3D94002DC2DC /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EFC69F236D3D94002DC2DC /* MainTabBarController.swift */; };
 /* End PBXBuildFile section */
@@ -94,7 +93,6 @@
 		D3EFC695236C4058002DC2DC /* FirebaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		D3EFC696236C4058002DC2DC /* DatabaseProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		D3EFC697236C4058002DC2DC /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
-		D3EFC69B236C4173002DC2DC /* CurrentValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentValue.swift; sourceTree = "<group>"; };
 		D3EFC69D236D29A8002DC2DC /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D3EFC69F236D3D94002DC2DC /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		ECB023F1FB4F3CB7472BC419 /* Pods_FIT5140_FinalAssignment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FIT5140_FinalAssignment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,7 +162,6 @@
 				D3EFC680236AF527002DC2DC /* ItemTableViewCell.swift */,
 				D3EFC681236AF527002DC2DC /* ItemTableViewCell.xib */,
 				D3EFC688236BCD07002DC2DC /* User.swift */,
-				D3EFC69B236C4173002DC2DC /* CurrentValue.swift */,
 				D3EFC69D236D29A8002DC2DC /* Location.swift */,
 				D38AA860236D810900774378 /* LocationListCell.swift */,
 				D38AA864236E8A8100774378 /* Trip.swift */,
@@ -262,6 +259,11 @@
 				TargetAttributes = {
 					D3B40E21236A796C009B2D9E = {
 						CreatedOnToolsVersion = 10.3;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -374,7 +376,6 @@
 				D38AA85F236D7A9700774378 /* LocationListViewController.swift in Sources */,
 				D3EFC69A236C4059002DC2DC /* MulticastDelegate.swift in Sources */,
 				D3B40E2E236A796C009B2D9E /* FIT5140_FinalAssignment.xcdatamodeld in Sources */,
-				D3EFC69C236C4173002DC2DC /* CurrentValue.swift in Sources */,
 				D3C39C412373E93B00CD0E88 /* UnknownDriverViewController.swift in Sources */,
 				D3EFC669236A8E17002DC2DC /* HomeViewController.swift in Sources */,
 				D3EFC689236BCD07002DC2DC /* User.swift in Sources */,

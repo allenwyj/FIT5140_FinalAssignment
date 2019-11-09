@@ -52,7 +52,6 @@ class SignUpViewController: UIViewController {
     // Validate the fields data. If validation check is passed, returns nil. Otherwise, returns
     // error message.
     func validateFields() -> String? {
-        
         // Fields cannot remain empty
         if firstNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             lastNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
@@ -77,13 +76,14 @@ class SignUpViewController: UIViewController {
         
         // Start loading
         activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         
         // Valdate the fields
         let error = validateFields()
         
         if error != nil {
-            
             activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
             
             errorLabel.text = error!
             showError(error!)
@@ -98,6 +98,7 @@ class SignUpViewController: UIViewController {
                 
                 if error != nil {
                     self.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
                     
                     // Error exists while creating user
                     self.showError("Creating user unsuccessfully")
@@ -109,26 +110,39 @@ class SignUpViewController: UIViewController {
                     // use uid as document id when creates user's document
                     let newUserReference = db.collection("users").document(result!.user.uid)
                     newUserReference.setData(["firstName": firstName, "lastName" : lastName, "uid" : result!.user.uid], completion: { (error) in
-                        
                         if error != nil {
-                             self.activityIndicator.stopAnimating()
-                            
+                            self.activityIndicator.stopAnimating()
+                            UIApplication.shared.endIgnoringInteractionEvents()
                             // Show error message
                             self.showError("Error! Please try to sign up again.")
                         }
+                        self.login(email: email, password: password)
                     })
-                    
-                    // TO DO: Create default document when the collection is created.
-                    
-                    
                 }
             }
-            
-            
-            // Transition to the home screen
-            transitionToHomeScreen()
         }
-        
+    }
+    
+    func login(email: String, password: String) {
+        // Signing in
+        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+            if error != nil {
+                self.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+                
+                // login failed
+                self.errorLabel.text = error!.localizedDescription
+                self.errorLabel.alpha = 1
+            } else {
+                
+                self.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+                
+                // Transition to the home screen
+                self.transitionToHomeScreen()
+                
+            }
+        }
     }
     
     func transitionToHomeScreen() {

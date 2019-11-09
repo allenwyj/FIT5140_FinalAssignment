@@ -85,12 +85,20 @@ class UnknownDriverViewController: UIViewController {
         activityIndicator.style = UIActivityIndicatorView.Style.gray
         self.view.addSubview(activityIndicator)
 
-        getImageFromFireStorage()
+        //getImageFromFireStorage()
         print("000000000000000000000")
         // Do any additional setup after loading the view.
         setupBarButtonItems()
         setupCollectionView()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getImageFromFireStorage()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        items.removeAll()
     }
 
     override func viewWillLayoutSubviews() {

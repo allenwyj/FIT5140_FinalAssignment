@@ -65,6 +65,7 @@ class LoginViewController: UIViewController {
         
         // Start Animating
         activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         
         // Inputs validation
         let error = validateFields()
@@ -83,12 +84,13 @@ class LoginViewController: UIViewController {
             Auth.auth().signIn(withEmail: email!, password: password!) { (result, error) in
                 if error != nil {
                     self.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
                     
                     // login failed
                     self.errorLabel.text = error!.localizedDescription
                     self.errorLabel.alpha = 1
                 } else {
-                    
+                    UIApplication.shared.endIgnoringInteractionEvents()
                     let tabBarController = self.storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.tabBarController) as? MainTabBarController
                     
                     // kill view

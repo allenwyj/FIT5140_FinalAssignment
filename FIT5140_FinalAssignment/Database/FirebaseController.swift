@@ -32,18 +32,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
         //currentValueDataList = [CurrentValue]()
         
         super.init()
-        
-        // This will START THE PROCESS of signing in with an anonymous account
-        // The closure will not execute until its recieved a message back which can be any time later
-//        authController.signInAnonymously() { (authResult, error) in
-//            guard authResult != nil else {
-//                fatalError("Firebase authentication failed")
-//            }
-//            // Once we have authenticated we can attach our listeners to the firebase firestore
-//            self.setUpListeners()
-//        }
-        
-        
         setUpListeners()
     }
     
@@ -61,21 +49,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             }
             self.parseTripsDataSnapshot(snapshot: querySnapshot!)
         }
-
     }
-    
-//    func getImageFromFireStorage() {
-//        let storageRef = Storage.storage().reference()
-//        storageRef.getData(maxSize: 4 * 1024 * 1024) { (data, error) in
-//            if let error = error {
-//                print("Error: \(error.localizedDescription)")
-//                return
-//            }
-//            if let data = data {
-//                
-//            }
-//        }
-//    }
     
     func parseTripsDataSnapshot(snapshot: QuerySnapshot) {
         
@@ -95,7 +69,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                         print("Error getting documents: \(error)")
                     } else {
                         for document in querySnapshot!.documents {
-                            print("\(document.documentID) => \(document.data())")
+                            //print("\(document.documentID) => \(document.data())")
                             let lat = (document.data()["latitude"] as! NSString).doubleValue
                             let long = (document.data()["longitude"] as! NSString).doubleValue
                             let timeStamp = document.data()["timeStamp"] as! String
@@ -112,11 +86,10 @@ class FirebaseController: NSObject, DatabaseProtocol {
             }
 
             if change.document.data().isEmpty == false {
-                
                 if change.type == .modified || change.type == .added {
                     let index = getTripIndexByID(reference: documentRef)!
                     tripsList[index].tripName = documentRef
-                    print("############\(tripsList.count)")
+                    //print("############\(tripsList.count)")
                     //tripsList[index].locations = points
                 }
             }
