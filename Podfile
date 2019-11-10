@@ -12,4 +12,5 @@ target 'FIT5140_FinalAssignment' do
 	pod 'Firebase/Storage'
 	# add the Firebase pod for Google Analytics
 	pod 'Firebase/Analytics'
+	# pod 'EzPopup
 end

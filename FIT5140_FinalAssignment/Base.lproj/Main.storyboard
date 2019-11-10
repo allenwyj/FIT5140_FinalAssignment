@@ -139,7 +139,7 @@
             </objects>
             <point key="canvasLocation" x="1457.9710144927537" y="-33.482142857142854"/>
         </scene>
-        <!--Setting-->
+        <!--Settings-->
         <scene sceneID="iv3-T6-R0A">
             <objects>
                 <viewController id="cEX-sa-rwq" customClass="SettingViewController" customModule="FIT5140_FinalAssignment" customModuleProvider="target" sceneMemberID="viewController">
@@ -156,9 +156,9 @@
                                             <constraint firstAttribute="width" secondItem="5Rk-w1-U7X" secondAttribute="height" multiplier="77:64" id="Ciz-nQ-ma8"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aU-qg-pvv">
-                                        <rect key="frame" x="5" y="155" width="364" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7aU-qg-pvv">
+                                        <rect key="frame" x="5" y="160" width="364" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -168,7 +168,7 @@
                                     <constraint firstItem="5Rk-w1-U7X" firstAttribute="centerY" secondItem="h9Q-aV-Sdt" secondAttribute="centerY" id="Nm8-46-OdH"/>
                                     <constraint firstItem="5Rk-w1-U7X" firstAttribute="centerX" secondItem="h9Q-aV-Sdt" secondAttribute="centerX" id="RgG-1t-cdE"/>
                                     <constraint firstAttribute="trailing" secondItem="7aU-qg-pvv" secondAttribute="trailing" constant="5" id="Tas-QX-3uY"/>
-                                    <constraint firstAttribute="bottom" secondItem="7aU-qg-pvv" secondAttribute="bottom" constant="5" id="lfR-nN-tUG"/>
+                                    <constraint firstAttribute="bottom" secondItem="7aU-qg-pvv" secondAttribute="bottom" id="lfR-nN-tUG"/>
                                     <constraint firstItem="7aU-qg-pvv" firstAttribute="leading" secondItem="h9Q-aV-Sdt" secondAttribute="leading" constant="5" id="mRE-kC-5Oe"/>
                                 </constraints>
                             </view>
@@ -186,7 +186,7 @@
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset Doors" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NzW-a6-74n">
                                                 <rect key="frame" x="80" y="0.0" width="159" height="50"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -216,7 +216,7 @@
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save Driver" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kXs-AI-yY8">
                                                 <rect key="frame" x="80" y="0.0" width="159" height="50"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -241,7 +241,7 @@
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear Driver" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xLV-T8-kpr">
                                                 <rect key="frame" x="80" y="0.0" width="159" height="50"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -266,7 +266,7 @@
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Monitoring" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gmJ-aV-J7b">
                                                 <rect key="frame" x="80" y="0.0" width="159" height="50"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -337,8 +337,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Gtr-Pv-NG2"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Setting" id="ucC-TD-vXd">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="icons8-info" id="jps-OT-pFZ">
+                    <navigationItem key="navigationItem" title="Settings" id="ucC-TD-vXd">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="icon-info-24" id="jps-OT-pFZ">
                             <connections>
                                 <segue destination="Bba-H8-JSg" kind="show" id="8Ng-k0-tr7"/>
                             </connections>
@@ -758,20 +758,20 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GfY-1W-rGh">
                                         <rect key="frame" x="0.0" y="183.66666666666669" width="414" height="174"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pm5-ZJ-9iE">
-                                                <rect key="frame" x="5" y="5" width="404" height="42"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pm5-ZJ-9iE">
+                                                <rect key="frame" x="5" y="5" width="404" height="42.333333333333336"/>
+                                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="35"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your car status is :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTs-Xb-uVe">
-                                                <rect key="frame" x="20" y="72" width="194.66666666666666" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <rect key="frame" x="20.000000000000014" y="72.333333333333314" width="223.33333333333337" height="29"/>
+                                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-door" translatesAutoresizingMaskIntoConstraints="NO" id="e46-gU-xiD">
-                                                <rect key="frame" x="270.66666666666669" y="39" width="96" height="96"/>
+                                                <rect key="frame" x="299.33333333333331" y="39" width="96" height="96"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="96" id="H9I-tW-H28"/>
                                                     <constraint firstAttribute="width" constant="96" id="veR-Jc-zM6"/>
@@ -800,9 +800,9 @@
                                                     <constraint firstAttribute="height" constant="66" id="cIc-V4-tyL"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Car Loading..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXZ-su-Rw6">
-                                                <rect key="frame" x="5" y="88.999999999999943" width="404" height="33.666666666666657"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Car Location..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXZ-su-Rw6">
+                                                <rect key="frame" x="5" y="88.999999999999943" width="404" height="29"/>
+                                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -928,12 +928,12 @@
         <image name="icon-connect" width="48" height="48"/>
         <image name="icon-door" width="48" height="48"/>
         <image name="icon-home.png" width="30" height="30"/>
+        <image name="icon-info-24" width="24" height="24"/>
         <image name="icon-map.png" width="24" height="24"/>
         <image name="icon-placemarker" width="96" height="96"/>
         <image name="icon-takeImg" width="48" height="48"/>
         <image name="icon-trash" width="48" height="48"/>
         <image name="icon-user" width="96" height="96"/>
-        <image name="icons8-info" width="50" height="50"/>
         <image name="logo.png" width="400" height="266"/>
     </resources>
 </document>

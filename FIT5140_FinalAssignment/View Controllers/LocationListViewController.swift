@@ -48,9 +48,13 @@ class LocationListViewController: UITableViewController, DatabaseListener {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocationListCell") as! LocationListCell
         
         // TO DO: set trip info to the cell
-        cell.locationCellLabel.text = trip.tripName
+        cell.locationCellLabel.text = "Trip \(trip.tripName!)"
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60.0
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

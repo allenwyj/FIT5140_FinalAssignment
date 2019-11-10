@@ -29,6 +29,7 @@ class SignUpViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setUpElements()
+        tapToHideKeyboard()
         
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
@@ -48,6 +49,12 @@ class SignUpViewController: UIViewController {
         Styles.styleFilledButton(signUpButton)
     }
     
+    // tap anywhere to hide keyboard
+    func tapToHideKeyboard() {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
     
     // Validate the fields data. If validation check is passed, returns nil. Otherwise, returns
     // error message.

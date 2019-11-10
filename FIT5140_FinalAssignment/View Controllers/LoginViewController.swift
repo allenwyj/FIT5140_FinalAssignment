@@ -26,12 +26,21 @@ class LoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setUpElements()
+        tapToHideKeyboard()
         
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
         activityIndicator.style = UIActivityIndicatorView.Style.gray
         self.view.addSubview(activityIndicator)
     }
+    
+    func tapToHideKeyboard() {
+        // tap anywhere to hide keyboard
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
     
     func setUpElements() {
         

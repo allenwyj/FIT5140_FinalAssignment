@@ -66,7 +66,7 @@ class SettingViewController: UIViewController {
         currentUserRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 let userName = document.data()!["firstName"] as! String
-                self.nameLabel.text = "Welcome, \(userName)"
+                self.nameLabel.text = userName
                 self.activityIndicator.stopAnimating()
             } else {
                 print("Document does not exist")
