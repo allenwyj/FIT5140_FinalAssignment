@@ -34,7 +34,18 @@ class ImageDetailViewController: UIViewController {
         guard let image = image else { return }
         
         imageView.image = image
-        imageLabel.text = imageName
+        // split the name of image to get the time data.
+        let splitResult = imageName.split(separator: " ")
+        let photoTime = splitResult[0]
+        
+        let milliseconds = Double(photoTime)
+        let date = Date(timeIntervalSince1970: milliseconds!)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        formatter.locale = NSLocale(localeIdentifier: "en_US") as Locale?
+        
+        // put the time in the image
+        imageLabel.text = formatter.string(from: date as Date)
     }
     
     func setupBarButtonItems() {

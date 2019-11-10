@@ -1,8 +1,8 @@
 //
 //  FirebaseController.swift
-//  assignment2
+//  FIT5140_FinalAssignment
 //
-//  Created by Yujie Wu on 30/9/19.
+//  Created by Yujie Wu on 31/10/19.
 //  Copyright © 2019 Yujie Wu. All rights reserved.
 //
 
@@ -18,9 +18,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var authController: Auth
     var database: Firestore
     var tripsRef: CollectionReference?
-    //var currentValuesRef: CollectionReference?
     var tripsList: [Trip]
-    //var currentValueDataList: [CurrentValue]
     
     override init() {
         // To use Firebase in our application we first must run the FirebaseApp configure method
@@ -29,7 +27,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
         authController = Auth.auth()
         database = Firestore.firestore()
         tripsList = [Trip]()
-        //currentValueDataList = [CurrentValue]()
         
         super.init()
         setUpListeners()
@@ -44,20 +41,21 @@ class FirebaseController: NSObject, DatabaseProtocol {
         
         tripsRef?.addSnapshotListener { querySnapshot, error in
             guard (querySnapshot?.documents) != nil else {
-                
                 return
             }
             self.parseTripsDataSnapshot(snapshot: querySnapshot!)
         }
     }
     
+    /**
+     Fetch data from the database based on the login user. Append the trips into the tripsList.
+     When the trips in the database is changing, the tripsList will be updated.
+     **/
     func parseTripsDataSnapshot(snapshot: QuerySnapshot) {
-        
         snapshot.documentChanges.forEach { change in
 
             let documentRef = change.document.documentID
-            
-            // NOTE: Adding data from raspberry pi need to add the document first, then crate the sub-collection
+
             if change.type == .added {
                 let newTripData = Trip()
                 newTripData.tripName = documentRef
@@ -70,32 +68,30 @@ class FirebaseController: NSObject, DatabaseProtocol {
                     if let error = error {
                         print("Error getting documents: \(error)")
                     } else {
+                        // For each point inside each trip, append its locations to the [Location] array in the newTripData.
                         for document in querySnapshot!.documents {
-                            //print("\(document.documentID) => \(document.data())")
                             let lat = (document.data()["latitude"] as! NSString).doubleValue
                             let long = (document.data()["longitude"] as! NSString).doubleValue
                             let timeStamp = document.data()["timeStamp"] as! String
                             let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
                             
                             let newLocation = Location(title: document.documentID, subTitle: timeStamp, coordinate: coordinate)
-                            
                             newTripData.locations?.append(newLocation)
                         }
                     }
                 }
-             
                 tripsList.append(newTripData)
             }
-
+            
             if change.document.data().isEmpty == false {
+                // Listen to the databse if any changes or adding is made, update the tripList
                 if change.type == .modified || change.type == .added {
                     let index = getTripIndexByID(reference: documentRef)!
                     tripsList[index].tripName = documentRef
-                    //print("############\(tripsList.count)")
-                    //tripsList[index].locations = points
                 }
             }
             
+            // Listen to the databse if any deletion is made, update the tripList
             if change.type == .removed {
                 if let index = getTripIndexByID(reference: documentRef) {
                     tripsList.remove(at: index)
@@ -105,7 +101,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
 
         listeners.invoke { (listener) in
             if listener.listenerType == ListenerType.tripsData || listener.listenerType == ListenerType.all {
-                
                 listener.onTripsChange(change: .update, tripsList: tripsList)
             }
         }
@@ -118,7 +113,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 return tripsList.firstIndex(of: tripData)
             }
         }
-
         return nil
     }
     
@@ -138,7 +132,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     func removeListener(listener: DatabaseListener) {
-        print("listener removed")
         listeners.removeDelegate(listener)
     }
 }

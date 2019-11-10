@@ -42,14 +42,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
         
+        // Check the database every 10 seconds if the car sfaety status is stolen, send the notification
         setTimerToCheckFirestore()
         
         return true
     }
     
+    // Scheduling timer to Call the function "checkAlertValue" with the interval of 10 seconds
     func setTimerToCheckFirestore() {
-        // 0 is default, 1 is setting
-        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
         timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(checkAlertValue), userInfo: nil, repeats: true)
     }
     
@@ -57,6 +57,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         getAlertDataFromFirebase()
     }
     
+    /**
+     The method is to fetch data in the firestore and check if the status is stolen, it will send the notification.
+     This method will be called in every 10 seconds. If the notification is already sent, it won't send again. Until the
+     status is getting back to 'safe' and turns to 'stolen' again.
+     **/
     func getAlertDataFromFirebase() {
         let fieldName = "alert"
         let database = Firestore.firestore()
@@ -68,10 +73,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 if  status == "stolen" && !self.isSend { // stolen but not send yet: send notification
                     self.postLocalNotifications(eventTitle: "Warning", eventContent: "Someone is in your car!")
                     self.isSend = true
-                    print("+++++++++++++CAR STOLEN++++++++++++++")
+                    
                 } else if status == "safe" && self.isSend { // it's safe, but isSend, reset the isSend but dont send the notification
                     self.isSend = false
-                    print("is send: true, safety")
+                    
                 } else {
                     print("status: \(status), isSend: \(self.isSend)")
                 }
@@ -132,13 +137,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 if  status == "stolen" && !self.isSend { // stolen but not send yet: send notification
                     self.postLocalNotifications(eventTitle: "Warning", eventContent: "Someone is in your car!")
                     self.isSend = true
-                    print("+++++++++++++CAR STOLEN++++++++++++++")
                     newData = true
                 } else if status == "safe" && self.isSend { // it's safe, but isSend, reset the isSend but dont send the notification
                     self.isSend = false
-                    print("is send: true, safety")
                 } else {
-                    print("status: \(status), isSend: \(self.isSend)")
+                    // Do nothing
                 }
                 completionHandler(newData ? .newData : .failed)
                 
@@ -156,10 +159,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        //setTimerToCheckFirestore()
-        
-        
-        print("Go to background")
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

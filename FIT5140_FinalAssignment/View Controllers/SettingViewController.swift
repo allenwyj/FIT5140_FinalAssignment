@@ -26,7 +26,6 @@ class SettingViewController: UIViewController {
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     var timer = Timer()
     let database = Firestore.firestore()
-    //let userAuth = Auth.auth().currentUser
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +34,7 @@ class SettingViewController: UIViewController {
         setUpElements()
         setupActivityIndicator()
         
+        // Check whether the login user is the monitoring list.
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         getUserName()
@@ -55,14 +55,14 @@ class SettingViewController: UIViewController {
         Styles.styleFilledButton(logoutButton)
     }
     
+    /**
+     This method is to fetch the user name from the firebase.
+     **/
     func getUserName() {
         let userAuth = Auth.auth().currentUser
         let uid = userAuth!.uid
         let currentUserRef = database.collection("users").document(uid)
-        
-        print("=================")
-        print("User Id: \(uid)")
-        print("=================")
+
         currentUserRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 let userName = document.data()!["firstName"] as! String
@@ -74,39 +74,56 @@ class SettingViewController: UIViewController {
         }
     }
     
+    /**
+     This method is to start the Pi by changing values in the firebase.
+     After the start, it will check the database if the value is changed back to the default value.
+     **/
     func getDocumentBasedOnClicked(fieldName: String) {
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
         let dbRef = database.collection("raspberryPiData").document("raspberryPi1")
-        
         // setDistance: 0 => default value, 1 => start raspberry pi to setup distance
-        dbRef.setData([fieldName : "2"], merge: true) { err in
+        dbRef.setData([fieldName : "1"], merge: true) { err in
             if let err = err {
                 print("Error writing document: \(err)")
-                self.activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
                 self.displayMessage(err as! String, "Error")
             } else {
                 print("Document successfully written!")
-                // self.activityIndicator.stopAnimating()
                 self.setTimerToCheckFirestore(fieldName: fieldName)
-                
             }
         }
     }
     
+    /**
+     This method is to perform activities when the distance button is clicked.
+     **/
     @IBAction func setUpDistance(_ sender: Any) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        activityIndicator.startAnimating()
         getDocumentBasedOnClicked(fieldName: "setDistance")
     }
     
+    /**
+     This method is to perform activities when the setup driver button is clicked.
+     **/
     @IBAction func setUpDriver(_ sender: Any) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        activityIndicator.startAnimating()
         getDocumentBasedOnClicked(fieldName: "takePictures")
     }
     
+    /**
+     This method is to perform activities when the delete drivers button is clicked.
+     **/
     @IBAction func clearAllDriver(_ sender: Any) {
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        activityIndicator.startAnimating()
         getDocumentBasedOnClicked(fieldName: "deleteDrivers")
     }
     
+    /**
+     This method is to check the login user is in the list of registration.
+     And it will control the switch.
+     If the current user is in the list, the switch will be set into On, otherwise off.
+     **/
     func checkLoginUserIsRegister() {
         let userAuth = Auth.auth().currentUser
         let uid = userAuth!.uid
@@ -120,16 +137,18 @@ class SettingViewController: UIViewController {
             } else {
                 let noOfDocument = querySnapshot!.documents.count
                 if noOfDocument == 0 {
-                    print("Heyyy, No user in the db")
                     self.registerSwitch.setOn(false, animated: true)
                 } else {
-                    print("Heyyy, there is a user")
                     self.registerSwitch.setOn(true, animated: true)
                 }
             }
         }
     }
     
+    /**
+     This method is to change the database when the user uses the switch.
+     If user turns it On, the current user ID will be saved into the list, otherwise, it will be deleted.
+     **/
     func editRegisterStatus(isTurnOff: Bool) {
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
@@ -168,30 +187,34 @@ class SettingViewController: UIViewController {
     
     func setTimerToCheckFirestore(fieldName: String) {
         // 0 is default, 1 is setting
-        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(checkDefaultValue), userInfo: fieldName, repeats: true)
+        // Scheduling timer to Call the function "checkDefaultValue" with the interval of 1 seconds
         
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(checkDefaultValue), userInfo: fieldName, repeats: true)
     }
     
     @objc func checkDefaultValue(sender: Timer) {
-        let fieldName = sender.userInfo as! String
-        print(fieldName)
-        let dbRef = database.collection("raspberryPiData").document("raspberryPi1")
         
+        let fieldName = sender.userInfo as! String
+        let dbRef = database.collection("raspberryPiData").document("raspberryPi1")
+
         dbRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 if document.data()![fieldName] as! String == "0" {
                     self.timer.invalidate()
-                    self.activityIndicator.stopAnimating()
                     UIApplication.shared.endIgnoringInteractionEvents()
+                    self.activityIndicator.stopAnimating()
                     self.displayMessage("Updated successfully!", "Success")
                 }
+                
             } else {
                 print("Document does not exist")
             }
         }
     }
     
+    /**
+     This method is to perform user logout, it will change to the welcome screen.
+     **/
     @IBAction func userLogout(_ sender: Any) {
         activityIndicator.startAnimating()
         
@@ -202,7 +225,7 @@ class SettingViewController: UIViewController {
         }
         catch let error as NSError
         {
-            print (error.localizedDescription)
+            print(error.localizedDescription)
         }
     }
     

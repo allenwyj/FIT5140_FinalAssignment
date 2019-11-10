@@ -3,6 +3,7 @@
 //  FIT5140_FinalAssignment
 //
 //  Created by Yujie Wu on 31/10/19.
+//  Reference from CodeWithChris https://www.youtube.com/watch?v=1HN7usMROt8
 //  Copyright © 2019 Yujie Wu. All rights reserved.
 //
 
@@ -22,7 +23,6 @@ class SignUpViewController: UIViewController {
     
     // Create the Activity Indicator
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,15 +49,17 @@ class SignUpViewController: UIViewController {
         Styles.styleFilledButton(signUpButton)
     }
     
-    // tap anywhere to hide keyboard
+    // Tap anywhere to hide the keyboard
     func tapToHideKeyboard() {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     
-    // Validate the fields data. If validation check is passed, returns nil. Otherwise, returns
-    // error message.
+    /**
+     Validate the fields data.
+     If validation check is passed, returns nil. Otherwise, returns the error message.
+    **/
     func validateFields() -> String? {
         // Fields cannot remain empty
         if firstNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
@@ -72,7 +74,7 @@ class SignUpViewController: UIViewController {
         
         // Check the complexity of password
         if Styles.isPasswordValid(cleanedPassword) == false {
-            // Password is not complex enough
+            // If the password is not complex enough
             return "Please enter your password with at least 8 characters, a special character and a number"
         }
         
@@ -80,18 +82,17 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func signupTapped(_ sender: Any) {
-        
         // Start loading
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         
-        // Valdate the fields
+        // Valdating the fields
         let error = validateFields()
-        
+        // If there is any error
         if error != nil {
             activityIndicator.stopAnimating()
             UIApplication.shared.endIgnoringInteractionEvents()
-            
+            // Show the error message
             errorLabel.text = error!
             showError(error!)
         } else {
@@ -102,7 +103,7 @@ class SignUpViewController: UIViewController {
             
             // Create the user
             Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-                
+                // If any error happens
                 if error != nil {
                     self.activityIndicator.stopAnimating()
                     UIApplication.shared.endIgnoringInteractionEvents()
@@ -110,7 +111,6 @@ class SignUpViewController: UIViewController {
                     // Error exists while creating user
                     self.showError("Creating user unsuccessfully")
                 } else {
-                    
                     // User created successfully
                     let db = Firestore.firestore()
                     
@@ -122,8 +122,10 @@ class SignUpViewController: UIViewController {
                             UIApplication.shared.endIgnoringInteractionEvents()
                             // Show error message
                             self.showError("Error! Please try to sign up again.")
+                        } else {
+                            // Signup successfully, perform login
+                            self.login(email: email, password: password)
                         }
-                        self.login(email: email, password: password)
                     })
                 }
             }
@@ -141,7 +143,6 @@ class SignUpViewController: UIViewController {
                 self.errorLabel.text = error!.localizedDescription
                 self.errorLabel.alpha = 1
             } else {
-                
                 self.activityIndicator.stopAnimating()
                 UIApplication.shared.endIgnoringInteractionEvents()
                 

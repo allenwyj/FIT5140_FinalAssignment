@@ -49,6 +49,9 @@ class MapScreenViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
+    /**
+     This method is to check whether the location service is enable or not.
+     **/
     func checkLocationService() {
         if CLLocationManager.locationServicesEnabled() {
             setUpLocationManager()
@@ -59,6 +62,9 @@ class MapScreenViewController: UIViewController {
         }
     }
     
+    /**
+     This method is to check whether the user grant the permission of using location for the app.
+     **/
     func checkLocationServiceAuthorization() {
         let status = CLLocationManager.authorizationStatus()
         
@@ -75,7 +81,9 @@ class MapScreenViewController: UIViewController {
         }
     }
     
-    // Zoom into user's current location
+    /**
+     This method is to zoom into user's current location.
+     **/
     func zoomToLatestLocation(with coordinate: CLLocationCoordinate2D) {
         let zoomRegion = MKCoordinateRegion.init(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         mapView.setRegion(zoomRegion, animated: true)
@@ -87,6 +95,9 @@ class MapScreenViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    /**
+     This method is to set the timer to check the car location.
+     **/
     func scheduledUpdateCurrentCarLocation() {
         // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
         timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
@@ -99,6 +110,9 @@ class MapScreenViewController: UIViewController {
         getCarLocationFromFirestore()
     }
     
+    /**
+     This method is to add the car marker on the map.
+     **/
     func addAnnotation(latitude: Double, longitude: Double) {
         let newAnnotation = MKPointAnnotation()
         newAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
@@ -106,43 +120,22 @@ class MapScreenViewController: UIViewController {
         mapView.addAnnotation(newAnnotation)
     }
     
+    /**
+     This method is to remove the car location when the new marker is added.
+     **/
     private func removeAnnotation() {
         mapView.removeAnnotations(mapView.annotations)
     }
     
+    /**
+     This method is to fetch the car current location from the 'raspberryPi' collection
+     **/
     func getCarLocationFromFirestore() {
         let db = Firestore.firestore()
-        // let docRef = db.collection("currentValues").document("currentLocation")
-        
-        let currentUser = Auth.auth().currentUser
-        let currentUserRef = db.collection("users").document(currentUser!.uid)
-//
-//        // TESTING
-//        let trip = currentUserRef.collection("trips").document("trip1")
-//        trip.getDocument { (document, error) in
-//            if let document = document, document.exists {
-//                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-//
-//                print("Document data: \(dataDescription)")
-//            } else {
-//                print("Document does not exist")
-//            }
-//        }
-        
         // Fetching data from currentValues in the raspberry pi collection
-        //let carLocationRef = currentUserRef.collection("currentValues").document("currentLocation")
         let carLocationRef = db.collection("raspberryPiData").document("raspberryPi1")
         carLocationRef.getDocument { (document, error) in
             if let document = document, document.exists {
-//                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-//                print("Document data: \(dataDescription)")
-                
-                //let currentLocation = document.data()!["currentLocation"]
-                
-                //let a = document.data()!["currentLocation"]
-                //print(currentLocation! as! [String:Any])
-                //let currentLocation = a! as! [String:Any]
-                
                 let currentLocation = document.data()!["currentLocation"] as! [String : Any]
                 
                 let lat = (currentLocation["latitude"] as! NSString).doubleValue
@@ -155,7 +148,6 @@ class MapScreenViewController: UIViewController {
                 currentCarLocation = CLLocation(latitude: lat, longitude: long)
 
                 self.showAddress(currentCarLocation: currentCarLocation)
-                
             } else {
                 print("Document does not exist")
             }
@@ -166,17 +158,18 @@ class MapScreenViewController: UIViewController {
         lastUpdateTime.text = "Last update: \(timeStamp)"
     }
     
+    /**
+     This method is to display the current car location address through the Placemark.
+     **/
     func showAddress(currentCarLocation: CLLocation) {
         let geoCoder = CLGeocoder()
         geoCoder.reverseGeocodeLocation(currentCarLocation) { [weak self] (placemarks, error) in
             guard let self = self else { return }
             if let _ = error {
-                // TO DO:
                 return
             }
 
             guard let placemark = placemarks?.first else {
-                //TO DO:
                 return
             }
 
@@ -187,7 +180,7 @@ class MapScreenViewController: UIViewController {
             let cityName = placemark.administrativeArea ?? ""
 
             DispatchQueue.main.async {
-                self.addressLabel.text = "\(streetNumber), \(streetName) \(suburbName) \(cityName)"
+                self.addressLabel.text = "\(streetNumber) \(streetName) \(suburbName) \(cityName)"
             }
         }
     }
@@ -195,17 +188,12 @@ class MapScreenViewController: UIViewController {
 
 extension MapScreenViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-
-        print("Did get latest location")
-        
         guard let userLatestLocation = locations.first else { return }
         
         if userCurrentLocation == nil {
             zoomToLatestLocation(with: userLatestLocation.coordinate)
         }
-            
         userCurrentLocation = userLatestLocation.coordinate
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -215,11 +203,7 @@ extension MapScreenViewController: CLLocationManagerDelegate {
 
 extension MapScreenViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        //var center = getCenterLocation(for: mapView)
-        
-        //var center = CLLocation()
-        
-        
+    
         }
 }
 

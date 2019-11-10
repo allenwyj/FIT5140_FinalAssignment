@@ -3,6 +3,7 @@
 //  FIT5140_FinalAssignment
 //
 //  Created by Yujie Wu on 31/10/19.
+//  Reference from CodeWithChris https://www.youtube.com/watch?v=1HN7usMROt8
 //  Copyright © 2019 Yujie Wu. All rights reserved.
 //
 
@@ -25,15 +26,16 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        // hide the navigation bar
+        // Hide the navigation bar
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
         
-        // background video
+        // Load background video
         setUpVideo()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        // Show the navigation bar.
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
     }
@@ -55,7 +57,7 @@ class ViewController: UIViewController {
         let url = URL(fileURLWithPath: bundlePath!)
         // Create item
         let item = AVPlayerItem(url: url)
-        //Create player
+        //Create the media player
         videoPlayer = AVPlayer(playerItem: item)
         //Create layer
         videoPlayerLayer = AVPlayerLayer(player: videoPlayer!)
@@ -66,13 +68,8 @@ class ViewController: UIViewController {
         width: self.view.frame.size.width*4,
         height: self.view.frame.size.height)
         view.layer.insertSublayer(videoPlayerLayer!, at: 0)
-        
+        // Set the playing speed
         videoPlayer?.playImmediately(atRate: 0.8)
-        
     }
-    
-    
-
-
 }
 

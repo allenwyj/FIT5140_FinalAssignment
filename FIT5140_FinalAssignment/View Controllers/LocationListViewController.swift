@@ -32,6 +32,9 @@ class LocationListViewController: UITableViewController, DatabaseListener {
         databaseController?.removeListener(listener: self)
     }
     
+    /**
+     This method is to listen the tripsList changes. If there is a change, reload the tableview.
+     **/
     func onTripsChange(change: DatabaseChange, tripsList: [Trip]) {
         trips = tripsList
         
@@ -47,7 +50,7 @@ class LocationListViewController: UITableViewController, DatabaseListener {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocationListCell") as! LocationListCell
         
-        // TO DO: set trip info to the cell
+        // set trip info on the cell
         let startTime = trip.startTime!
         let endTime = trip.endTime!
         cell.locationCellLabel.text = "Route Ref: \(trip.tripName!)"
@@ -60,6 +63,9 @@ class LocationListViewController: UITableViewController, DatabaseListener {
         return 100.0
     }
     
+    /**
+     This method is to send the trip through the segue.
+     **/
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let trip = trips[indexPath.row]
         

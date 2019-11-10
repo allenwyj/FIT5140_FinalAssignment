@@ -19,24 +19,40 @@ class TripViewController: UIViewController, MKMapViewDelegate {
 
         // Do any additional setup after loading the view.
         var lists = [CLLocationCoordinate2D]()
+        var points: [Location]
+        points = trip!.locations!
         
-        for i in trip!.locations! {
-            lists.append(i.coordinate)
+        // sort the point based on the point title.
+        points = points.sorted(by: { ($0.title!) < ($1.title!) })
+        let sorted = points.sorted { (pointOne: Location, pointTwo: Location) -> Bool in
+            return (Int(pointOne.title!)!) < (Int(pointTwo.title!)!)
         }
         
+        // append the coordinate to a new list based on the new order.
+        for i in sorted {
+            lists.append(i.coordinate)
+            print(i.title!)
+        }
+        
+        // add the start point and the end point.
         guard lists.count > 0 else { return }
-        
         addAnnotation(sourceLocation: lists[0], destinationLocation: lists[lists.count - 1])
-        
-        for i in 0..<lists.count {
-            if i + 1 < lists.count {
-                drawLines(sourceLocation: lists[i], destinationLocation: lists[i + 1])
-            } else {
+
+        // skip the 10 point when drawing the routes.
+        var i = 0
+        while i < lists.count {
+            if i + 10 >= lists.count {
+                drawLines(sourceLocation: lists[i], destinationLocation: lists[lists.count - 1])
                 break
             }
+            drawLines(sourceLocation: lists[i], destinationLocation: lists[i + 10])
+            i = i + 10
         }
     }
     
+    /**
+     This method is to set the start point and end point.
+     **/
     func addAnnotation(sourceLocation: CLLocationCoordinate2D, destinationLocation: CLLocationCoordinate2D) {
         let sourcePin = Location(title: "Start Point", subTitle: "Source", coordinate: sourceLocation)
         let destinationPin = Location(title: "End Point", subTitle: "Destination", coordinate: destinationLocation)
@@ -45,9 +61,10 @@ class TripViewController: UIViewController, MKMapViewDelegate {
         self.mapView.addAnnotation(destinationPin)
     }
 
+    /**
+     This method is to draw the route between points.
+     **/
     func drawLines(sourceLocation: CLLocationCoordinate2D, destinationLocation: CLLocationCoordinate2D){
-        
-
         // Draw line
         let sourcePlaceMark = MKPlacemark(coordinate: sourceLocation)
         let destinationPlaceMark = MKPlacemark(coordinate: destinationLocation)
@@ -69,7 +86,6 @@ class TripViewController: UIViewController, MKMapViewDelegate {
             let route = directionResponse.routes[0] //choose the fast route
             print(route)
             self.mapView.addOverlay(route.polyline, level: .aboveRoads)
-            //self.mapView.addOverlays(route.polyline, level: .aboveRoads)
             let rect = route.polyline.boundingMapRect
             self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
         }

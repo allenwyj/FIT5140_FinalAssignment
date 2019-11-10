@@ -381,18 +381,73 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UYz-ja-qsI">
-                                <rect key="frame" x="87" y="422" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UYz-ja-qsI">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <connections>
+                                    <segue destination="PrK-Fp-fud" kind="embed" id="hCM-21-01v"/>
+                                </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4is-Mh-jqO" firstAttribute="trailing" secondItem="UYz-ja-qsI" secondAttribute="trailing" id="DsD-JQ-ezV"/>
+                            <constraint firstItem="4is-Mh-jqO" firstAttribute="bottom" secondItem="UYz-ja-qsI" secondAttribute="bottom" id="P6H-3W-UbP"/>
+                            <constraint firstItem="UYz-ja-qsI" firstAttribute="top" secondItem="4is-Mh-jqO" secondAttribute="top" id="r1U-lX-lzT"/>
+                            <constraint firstItem="UYz-ja-qsI" firstAttribute="leading" secondItem="4is-Mh-jqO" secondAttribute="leading" id="svK-Kb-Rlm"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="4is-Mh-jqO"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BeZ-6y-9Da" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6335" y="767"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="WE8-FC-ATk">
+            <objects>
+                <tableViewController id="PrK-Fp-fud" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="kmY-v0-xYN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="About CarTheft Monitor" id="OP4-hX-3O4">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="450" id="wLP-7F-kys">
+                                        <rect key="frame" x="0.0" y="55.333333333333314" width="414" height="450"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wLP-7F-kys" id="yjo-2u-u8E">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="449.66666666666669"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Za-Um-QVI">
+                                                    <rect key="frame" x="10" y="10" width="394" height="429.66666666666669"/>
+                                                    <mutableString key="text">Car thefts has been a significant issue in the present as there are lots of cases of stolen cars in Australia. In an event of a car theft, the owner would not know that their car is being stolen until they go back to the location of the car was last parked. Due to lack of information, it is difficult to find the car back after it has been stolen.  “CarTheft Monitor” project was developed to notify the owner when the car is being stolen by using face recognition. In this system, photos will be taken of the person in the event of a car theft and will be sent to the owner’s iOS mobile application. The owner will also be able to find the current location of the car and also find the routes that the car has travelled after it has been stolen. The images of the driver, the location of the car and the driven route of the car may help the owner to find the car with the help of the police. Data are captured using a Raspberry Pi connecting to a camera, distance sensor and a GPS sensor.</mutableString>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="1Za-Um-QVI" secondAttribute="bottom" constant="10" id="D1b-Iu-s9g"/>
+                                                <constraint firstItem="1Za-Um-QVI" firstAttribute="top" secondItem="yjo-2u-u8E" secondAttribute="top" constant="10" id="GOn-T9-h9S"/>
+                                                <constraint firstItem="1Za-Um-QVI" firstAttribute="leading" secondItem="yjo-2u-u8E" secondAttribute="leading" constant="10" id="Zzs-r5-CaM"/>
+                                                <constraint firstAttribute="trailing" secondItem="1Za-Um-QVI" secondAttribute="trailing" constant="10" id="ccb-1V-fjS"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="PrK-Fp-fud" id="CKN-9O-gCD"/>
+                            <outlet property="delegate" destination="PrK-Fp-fud" id="FGb-ny-hKP"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C4B-Q0-Dea" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7559" y="753"/>
         </scene>
         <!--User Guide-->
         <scene sceneID="5Ms-tm-5Tw">

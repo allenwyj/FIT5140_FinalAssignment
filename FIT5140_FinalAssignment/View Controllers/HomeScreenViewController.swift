@@ -28,27 +28,26 @@ class HomeScreenViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setupActivityIndicator()
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        activityIndicator.startAnimating()
+        self.activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         getUserName()
         setTimerToCheckFirestore(listenField: "currentLocation")
         setTimerToCheckFirestore(listenField: "statusCheck")
-        
+        self.activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
     }
     
+    /**
+     Get the current login user name
+     **/
     func getUserName() {
         let userAuth = Auth.auth().currentUser
         let uid = userAuth!.uid
         let currentUserRef = database.collection("users").document(uid)
-        
-        print("=================")
-        print("User Id: \(uid)")
-        print("=================")
+
         currentUserRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 let userName = document.data()!["firstName"] as! String
@@ -59,9 +58,10 @@ class HomeScreenViewController: UIViewController {
         }
     }
     
+    /**
+     Scheduling timer to Call the function "checkAlertValue" with the interval of 2 seconds
+     **/
     func setTimerToCheckFirestore(listenField: String) {
-        // 0 is default, 1 is setting
-        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
         timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(checkAlertValue), userInfo: listenField, repeats: true)
     }
     
@@ -75,6 +75,9 @@ class HomeScreenViewController: UIViewController {
         
     }
     
+    /**
+     Get the safety status from the database, and change the image and text based on the the value ('safe', 'stolen')
+     **/
     func getAlertDataFromFirebase() {
         let fieldName = "alert"
         let database = Firestore.firestore()
@@ -90,17 +93,16 @@ class HomeScreenViewController: UIViewController {
                     self.statusImage.image = UIImage(named: "safe")
                     self.statusView.backgroundColor = UIColor.init(red: 48/255, green: 173/255, blue: 99/255, alpha: 1)
                 }
-                
             } else {
                 print("Document does not exist")
             }
         }
     }
     
-//    func updateTimeStamp(timeStamp: String) {
-//        lastUpdateTime.text = "Last update: \(timeStamp)"
-//    }
-    
+    /**
+     The method is to get the current location of the car, it will fetch the last update value from the firebase
+     and set to the text label.
+     **/
     func getCarLocationFromFirestore() {
         let db = Firestore.firestore()
         
@@ -114,31 +116,27 @@ class HomeScreenViewController: UIViewController {
                 let long = (currentLocation["longitude"] as! NSString).doubleValue
                 let time = currentLocation["timeStamp"] as! String
                 
-                //self.updateTimeStamp(timeStamp: time)
                 var currentCarLocation = CLLocation()
                 currentCarLocation = CLLocation(latitude: lat, longitude: long)
                 self.showAddress(currentCarLocation: currentCarLocation, updateTime: time)
-                self.activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
             } else {
                 print("Document does not exist")
-                self.activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
             }
         }
     }
     
+    /**
+     This method is to show the current car location address by passing CLLocation point.
+     **/
     func showAddress(currentCarLocation: CLLocation, updateTime: String) {
         let geoCoder = CLGeocoder()
         geoCoder.reverseGeocodeLocation(currentCarLocation) { [weak self] (placemarks, error) in
             guard let self = self else { return }
             if let _ = error {
-                // TO DO:
                 return
             }
             
             guard let placemark = placemarks?.first else {
-                //TO DO:
                 return
             }
             
@@ -149,7 +147,7 @@ class HomeScreenViewController: UIViewController {
             let cityName = placemark.administrativeArea ?? ""
             
             DispatchQueue.main.async {
-                self.locationLabel.text = "\(streetNumber), \(streetName) \(suburbName) \(cityName)"
+                self.locationLabel.text = "\(streetNumber) \(streetName) \(suburbName) \(cityName)"
                 self.lastUpdateLabel.text = updateTime
             }
         }
