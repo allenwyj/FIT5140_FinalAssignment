@@ -48,13 +48,16 @@ class LocationListViewController: UITableViewController, DatabaseListener {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocationListCell") as! LocationListCell
         
         // TO DO: set trip info to the cell
-        cell.locationCellLabel.text = "Trip \(trip.tripName!)"
+        let startTime = trip.startTime!
+        let endTime = trip.endTime!
+        cell.locationCellLabel.text = "Route Ref: \(trip.tripName!)"
+        cell.locationCellTimeLabel.text = "From \(startTime) To \(endTime)"
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
+        return 100.0
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

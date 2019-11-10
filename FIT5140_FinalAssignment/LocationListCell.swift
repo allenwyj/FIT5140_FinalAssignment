@@ -12,12 +12,7 @@ class LocationListCell: UITableViewCell {
 
     @IBOutlet weak var locationImageView: UIImageView!
     @IBOutlet weak var locationCellLabel: UILabel!
-    
-    func setLocationCell (location: Location) {
-        //locationImageView.image = location.image
-        locationCellLabel.text = location.title
-        print(location.title)
-    }
+    @IBOutlet weak var locationCellTimeLabel: UILabel!
     
 
 }

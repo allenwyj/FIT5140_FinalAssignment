@@ -17,6 +17,7 @@ class HomeScreenViewController: UIViewController {
     @IBOutlet weak var statusImage: UIImageView!
     @IBOutlet weak var statusView: UIView!
     @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var lastUpdateLabel: UILabel!
     
     let database = Firestore.firestore()
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
@@ -111,12 +112,12 @@ class HomeScreenViewController: UIViewController {
                 let currentLocation = document.data()!["currentLocation"] as! [String : Any]
                 let lat = (currentLocation["latitude"] as! NSString).doubleValue
                 let long = (currentLocation["longitude"] as! NSString).doubleValue
-                //let time = currentLocation["timeStamp"] as! String
+                let time = currentLocation["timeStamp"] as! String
                 
                 //self.updateTimeStamp(timeStamp: time)
                 var currentCarLocation = CLLocation()
                 currentCarLocation = CLLocation(latitude: lat, longitude: long)
-                self.showAddress(currentCarLocation: currentCarLocation)
+                self.showAddress(currentCarLocation: currentCarLocation, updateTime: time)
                 self.activityIndicator.stopAnimating()
                 UIApplication.shared.endIgnoringInteractionEvents()
             } else {
@@ -127,7 +128,7 @@ class HomeScreenViewController: UIViewController {
         }
     }
     
-    func showAddress(currentCarLocation: CLLocation) {
+    func showAddress(currentCarLocation: CLLocation, updateTime: String) {
         let geoCoder = CLGeocoder()
         geoCoder.reverseGeocodeLocation(currentCarLocation) { [weak self] (placemarks, error) in
             guard let self = self else { return }
@@ -149,6 +150,7 @@ class HomeScreenViewController: UIViewController {
             
             DispatchQueue.main.async {
                 self.locationLabel.text = "\(streetNumber), \(streetName) \(suburbName) \(cityName)"
+                self.lastUpdateLabel.text = updateTime
             }
         }
     }

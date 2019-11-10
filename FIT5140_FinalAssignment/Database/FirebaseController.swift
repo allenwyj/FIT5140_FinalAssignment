@@ -61,6 +61,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
             if change.type == .added {
                 let newTripData = Trip()
                 newTripData.tripName = documentRef
+                newTripData.startTime = (change.document.data()["startTime"] as! String)
+                newTripData.endTime = (change.document.data()["endTime"] as! String)
                 
                 let pointsRef = change.document.reference.collection("points")
                 

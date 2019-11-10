@@ -10,15 +10,22 @@ import UIKit
 
 class Trip: NSObject {
     var tripName: String?
+    var startTime: String?
+    var endTime: String?
     var locations: [Location]?
+    
     
     override init() {
         tripName = ""
         locations = []
+        startTime = ""
+        endTime = ""
     }
     
-    init(tripName: String, points: [Location]) {
+    init(tripName: String, startTime: String, endTime: String, points: [Location]) {
         self.tripName = tripName
         self.locations = points
+        self.startTime = startTime
+        self.endTime = endTime
     }
 }
