@@ -84,13 +84,13 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8ZI-db-EoS">
                                 <rect key="frame" x="40" y="128" width="334" height="230.33333333333337"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="tester1@a.com" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gGu-tg-6B0">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gGu-tg-6B0">
                                         <rect key="frame" x="0.0" y="0.0" width="334" height="50"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="abcd1234!" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wsg-sS-Gcc">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wsg-sS-Gcc">
                                         <rect key="frame" x="0.0" y="70" width="334" height="50"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -422,7 +422,7 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Za-Um-QVI">
                                                     <rect key="frame" x="10" y="10" width="394" height="429.66666666666669"/>
-                                                    <mutableString key="text">Car thefts has been a significant issue in the present as there are lots of cases of stolen cars in Australia. In an event of a car theft, the owner would not know that their car is being stolen until they go back to the location of the car was last parked. Due to lack of information, it is difficult to find the car back after it has been stolen.  “CarTheft Monitor” project was developed to notify the owner when the car is being stolen by using face recognition. In this system, photos will be taken of the person in the event of a car theft and will be sent to the owner’s iOS mobile application. The owner will also be able to find the current location of the car and also find the routes that the car has travelled after it has been stolen. The images of the driver, the location of the car and the driven route of the car may help the owner to find the car with the help of the police. Data are captured using a Raspberry Pi connecting to a camera, distance sensor and a GPS sensor.</mutableString>
+                                                    <string key="text">Car thefts has been a significant issue in the present as there are lots of cases of stolen cars in Australia. In an event of a car theft, the owner would not know that their car is being stolen until they go back to the location of the car was last parked. Due to lack of information, it is difficult to find the car back after it has been stolen.  “CarTheft Monitor” project was developed to notify the owner when the car is being stolen by using face recognition. In this system, photos will be taken of the person in the event of a car theft and will be sent to the owner’s iOS mobile application. The owner will also be able to find the current location of the car and also find the routes that the car has travelled after it has been stolen. The images of the driver, the location of the car and the driven route of the car may help the owner to find the car with the help of the police. Data are captured using a Raspberry Pi connecting to a camera, distance sensor and a GPS sensor.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -458,7 +458,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7BK-bw-rpq">
-                                <rect key="frame" x="0.0" y="317" width="453" height="725"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <connections>
                                     <segue destination="6h1-Lb-cJy" kind="embed" id="TeT-cI-49I"/>
                                 </connections>
@@ -483,21 +483,21 @@
             <objects>
                 <tableViewController id="6h1-Lb-cJy" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="SGU-ye-2TK">
-                        <rect key="frame" x="0.0" y="0.0" width="453" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
                             <tableViewSection headerTitle="How to set up distance." id="17S-jy-zTf">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="YXv-qm-chG">
-                                        <rect key="frame" x="0.0" y="55.333333333333343" width="453" height="100"/>
+                                        <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YXv-qm-chG" id="MXh-dn-YIZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="453" height="99.666666666666671"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="99.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CgF-5C-dWD">
-                                                    <rect key="frame" x="5" y="5" width="365" height="89.666666666666671"/>
+                                                    <rect key="frame" x="5" y="5" width="443" height="89.666666666666671"/>
                                                     <string key="text">It's to enable the monitoring sensors working properly. Close the car doors and ensure no one is sitting inside when the distance setting is processing.</string>
                                                     <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -520,14 +520,14 @@
                             <tableViewSection headerTitle="How to set up driver" id="QBt-3c-6sp">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="Xdr-3W-j6J">
-                                        <rect key="frame" x="0.0" y="211.33333333333337" width="453" height="100"/>
+                                        <rect key="frame" x="0.0" y="211.33333333333337" width="414" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xdr-3W-j6J" id="hIH-Up-Xvg">
-                                            <rect key="frame" x="0.0" y="0.0" width="453" height="99.666666666666671"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="99.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bCg-3I-P8u">
-                                                    <rect key="frame" x="5" y="5" width="365" height="89.666666666666671"/>
+                                                    <rect key="frame" x="5" y="5" width="443" height="89.666666666666671"/>
                                                     <string key="text">In order to enable the device can recognise who is driving the car, therefore, when the button in the Settings is clicked, look at the camera and wait until the loading sign gone.</string>
                                                     <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -547,14 +547,14 @@
                             <tableViewSection headerTitle="How to clear all drivers" id="gq0-fc-GOE">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="cTH-om-js8">
-                                        <rect key="frame" x="0.0" y="367.33333333333337" width="453" height="100"/>
+                                        <rect key="frame" x="0.0" y="367.33333333333337" width="414" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cTH-om-js8" id="oqm-cv-Qjh">
-                                            <rect key="frame" x="0.0" y="0.0" width="453" height="99.666666666666671"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="99.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When the button is clicked, all drivers images will be cleared." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RYE-ys-tr6">
-                                                    <rect key="frame" x="5" y="5" width="365" height="89.666666666666671"/>
+                                                    <rect key="frame" x="5" y="5" width="443" height="89.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -573,14 +573,14 @@
                             <tableViewSection headerTitle="How to start monitor the car" id="BTf-pb-5Me">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="90M-aW-MXU">
-                                        <rect key="frame" x="0.0" y="523.33333333333337" width="453" height="100"/>
+                                        <rect key="frame" x="0.0" y="523.33333333333337" width="414" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="90M-aW-MXU" id="x9X-pv-h5I">
-                                            <rect key="frame" x="0.0" y="0.0" width="453" height="99.666666666666671"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="99.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In order to monitor the routes when the car is stolen, the Monitoring Car needs to be turn on." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jBW-kq-OBk">
-                                                    <rect key="frame" x="5" y="5" width="326" height="89.666666666666671"/>
+                                                    <rect key="frame" x="5" y="5" width="443" height="89.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
